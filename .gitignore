@@ -1,0 +1,29 @@
+# Build files
+/bin/
+/target/
+*.class
+
+# Eclipse files
+.classpath
+.project
+.settings/
+
+# Temporary files
+*.log
+*.tmp
+*.bak
+
+# Generated files
+*.war
+*.ear
+
+# IDE-specific files
+.idea/
+*.iml
+
+# Node.js
+/node_modules/
+
+# OS files
+.DS_Store
+Thumbs.db
