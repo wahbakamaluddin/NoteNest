@@ -99,7 +99,7 @@
         <div class="row align-items-center position-relative">
             <div class="col-3">
                 <div class="site-logo">
-                    <a href="index.jsp"><strong>NoteNest</strong></a>
+                    <a href="<%= request.getContextPath() %>/index.jsp"><strong>NoteNest</strong></a>
                 </div>
             </div>
 
@@ -114,13 +114,14 @@
                     <!-- Floating container for navigation links -->
                     <div class="floating-container">
                         <nav class="site-navigation d-none d-lg-block" role="navigation">
-                            <ul class="site-menu main-menu js-clone-nav ml-auto">
-                                <li><a href="index.jsp" class="nav-link" id="home-link">Home</a></li>
-                                <li><a href="profile.jsp" class="nav-link" id="profile-link">Profile</a></li>
-                                <li><a href="myupload.jsp" class="nav-link" id="myuploads-link">My Uploads</a></li>
-                                <li><a href="tutorials.jsp" class="nav-link" id="tutorials-link">Tutorials</a></li>
-                                <li><a href="about.jsp" class="nav-link" id="about-link">About Us</a></li>
-                            </ul>
+						<ul class="site-menu main-menu js-clone-nav ml-auto">
+    						<li><a href="<%= request.getContextPath() %>/index.jsp" class="nav-link" id="home-link">Home</a></li>
+   							<li><a href="<%= request.getContextPath() %>/profile.jsp" class="nav-link" id="profile-link">Profile</a></li>
+   							<li><a href="<%= request.getContextPath() %>/myupload.jsp" class="nav-link" id="myuploads-link">My Uploads</a></li>
+							<li><a href="<%= request.getContextPath() %>/tutorials.jsp" class="nav-link" id="tutorials-link">Tutorials</a></li>
+    						<li><a href="<%= request.getContextPath() %>/about.jsp" class="nav-link" id="about-link">About Us</a></li>
+						</ul>
+
                         </nav>
                     </div>
                     <!-- Log In Button -->
