@@ -72,11 +72,10 @@
             <div class="container">
                 <div class="row align-items-center justify-content-center">
                     <div class="col-lg-10 text-center">
-                        <h1>Learn <strong>React Native</strong></h1>
+                        <h1><strong>${note.noteTitle}</strong></h1>
                         <p>
-                            <span class="mr-2 mb-2">1hr 24m</span>
-                            <span class="mr-2 mb-2">Advanced</span>
-                            <span class="mr-2 mb-2">Jun 18, 2020</span>
+                            <span class="mr-2 mb-2">${note.subject}</span>
+                            <span class="mr-2 mb-2">${note.uploadDate}</span>
                         </p>
                     </div>
                 </div>
@@ -85,9 +84,9 @@
 
         <!-- PDF Display Section -->
         <div class="container mt-5 mb-5">
-            <h2 class="text-center mb-4">React Native Tutorial PDF</h2>
+            <h2 class="text-center mb-4">${note.fileName}</h2>
             <div class="embed-responsive embed-responsive-16by9">
-                <iframe class="embed-responsive-item" src="<%= request.getContextPath() %>/images/testPDF.pdf" frameborder="0" allowfullscreen></iframe>
+                <iframe class="embed-responsive-item" src="<%= request.getContextPath() %>${note.filePath}" frameborder="0" allowfullscreen></iframe>
             </div>
         </div>
 

@@ -1,4 +1,4 @@
-package com.notenest.model;
+package com.notenest.bean;
 
 import java.time.LocalDate;
 

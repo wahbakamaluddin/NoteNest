@@ -8,13 +8,11 @@ import java.time.LocalDate;
 import javax.servlet.ServletContext;
 import javax.servlet.http.Part;
 
-import com.notenest.model.NoteBean;
+import com.notenest.bean.NoteBean;
 
 public class NoteService {
 //    private static final String UPLOAD_DIR = "/Volumes/kstone1tb/degree/Sem5/SKJ3013 Adv. Java/Project/uploads";
 	private static final String UPLOAD_DIR = "upload/pdf";
-
-	
 
     public static String uploadNote(Part filePart, ServletContext context) throws IOException {
         if (filePart == null || filePart.getSubmittedFileName() == null) {

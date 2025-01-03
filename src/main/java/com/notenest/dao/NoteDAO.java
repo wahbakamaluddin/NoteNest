@@ -1,6 +1,6 @@
 package com.notenest.dao;
 
-import com.notenest.model.NoteBean;
+import com.notenest.bean.NoteBean;
 import com.notenest.util.DBUtil;
 
 import java.sql.*;
@@ -84,7 +84,7 @@ public class NoteDAO {
     // Get a note by ID
     public NoteBean getNoteById(int noteId) throws SQLException {
         NoteBean note = null;
-        String query = "SELECT * FROM notes WHERE noteId = ?";
+        String query = "SELECT * FROM Note WHERE note_id = ?";
 
         try (Connection connection = DBUtil.getConnection();
              PreparedStatement stmt = connection.prepareStatement(query)) {
@@ -93,7 +93,7 @@ public class NoteDAO {
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
                     note = new NoteBean();
-                    note.setNoteId(rs.getInt("noteId"));
+                    note.setNoteId(rs.getInt("note_id"));
                     note.setFileName(rs.getString("file_name"));
                     note.setFilePath(rs.getString("file_path"));
                     note.setUploaderId(rs.getInt("uploader_id")); // Changed to int

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@page import="java.util.List" %>
-<%@page import="com.notenest.dao.NoteDAO, com.notenest.model.NoteBean" %>
+<%@page import="com.notenest.dao.NoteDAO,com.notenest.bean.NoteBean" %>
 <!DOCTYPE html>
 <html>
 <head>

@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
-import com.notenest.model.NoteBean;
+import com.notenest.bean.NoteBean;
 import com.notenest.dao.NoteDAO;
 import com.notenest.service.NoteService;
 import com.notenest.service.NoteService2;
@@ -27,7 +27,7 @@ import com.google.gson.Gson;
 /**
  * Servlet implementation class NoteController
  */
-@WebServlet({"/getAllNote", "/addNote", "/deleteNote", "/editNote"})
+@WebServlet({"/getAllNote", "/addNote", "/deleteNote", "/editNote", "/viewNote/*"})
 @MultipartConfig(
 	    fileSizeThreshold = 1024 * 1024 * 2, // 2MB (threshold for writing files to disk)
 	    maxFileSize = 1024 * 1024 * 10,      // 10MB (maximum file size)
@@ -67,47 +67,40 @@ public class NoteController extends HttpServlet {
     }
     
     //GET methods
-//    private void getAllNote(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        List<NoteBean> notes = null;
-//		try {
-//			notes = NoteDAO.getAllNote();
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		request.setAttribute("notes", notes); // Store in session
-//	    // Debugging: Print the notes attribute in the session
-//		request.getSession().setAttribute("notes", notes);
-//		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
-//		dispatcher.forward(request, response);
-//	    System.out.println("Notes in session: " + notes);
-//    }
-
-    private void getAllNote(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<NoteBean> notes = null;
-        
-        try {
-            notes = NoteDAO.getAllNote(); // Fetch notes from database
-        } catch (Exception e) {
-            e.printStackTrace(); // Handle exception (logging, error handling)
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error fetching notes");
+    private void viewNote(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	String[] pathParts = request.getRequestURI().split("/");
+        String noteIdParam = pathParts[pathParts.length - 1];
+        if (noteIdParam == null || noteIdParam.isEmpty()) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Note ID is required.");
             return;
         }
-        
-        // Set the response content type to JSON
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
 
-        // Serialize the list of notes to JSON
-        Gson gson = new Gson();
-        String jsonNotes = gson.toJson(notes);
-        
-        // Write the JSON result to the response
-        response.getWriter().write(jsonNotes);
+        try {
+            int noteId = Integer.parseInt(noteIdParam);
 
-        // Optionally log the result for debugging
-        System.out.println("Notes sent as JSON: " + jsonNotes);
+            // Fetch the note details from the database
+            NoteDAO noteDAO = new NoteDAO();
+            NoteBean note = noteDAO.getNoteById(noteId); // Assume this method exists in NoteDAO
+
+            if (note == null) {
+                response.sendError(HttpServletResponse.SC_NOT_FOUND, "Note not found.");
+                return;
+            }
+
+            // Set the note details in the request scope
+            request.setAttribute("note", note);
+
+            // Forward to the detailed page
+            request.getRequestDispatcher("/displayNote.jsp").forward(request, response);
+        } catch (NumberFormatException e) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid Note ID format.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An error occurred while retrieving the note.");
+        }
     }
+
+    
     
     //POST methods//
     // Method to add a note
@@ -237,39 +230,7 @@ public class NoteController extends HttpServlet {
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An error occurred while updating the note metadata.");
         }
     }
-    
-    private void viewNote(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String noteIdParam = request.getParameter("noteId");
-        if (noteIdParam == null || noteIdParam.isEmpty()) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Note ID is required.");
-            return;
-        }
-
-        try {
-            int noteId = Integer.parseInt(noteIdParam);
-
-            // Fetch the note details from the database
-            NoteDAO noteDAO = new NoteDAO();
-            NoteBean note = noteDAO.getNoteById(noteId); // Assume this method exists in NoteDAO
-
-            if (note == null) {
-                response.sendError(HttpServletResponse.SC_NOT_FOUND, "Note not found.");
-                return;
-            }
-
-            // Set the note details in the request scope
-            request.setAttribute("note", note);
-
-            // Forward to the detailed page
-            request.getRequestDispatcher("/noteDetails.jsp").forward(request, response);
-        } catch (NumberFormatException e) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid Note ID format.");
-        } catch (Exception e) {
-            e.printStackTrace();
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An error occurred while retrieving the note.");
-        }
-    }
-    
+        
 }
 
 
