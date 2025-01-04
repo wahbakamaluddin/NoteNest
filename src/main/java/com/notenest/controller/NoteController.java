@@ -91,7 +91,7 @@ public class NoteController extends HttpServlet {
             request.setAttribute("note", note);
 
             // Forward to the detailed page
-            request.getRequestDispatcher("/displayNote.jsp").forward(request, response);
+            request.getRequestDispatcher("/viewNote.jsp").forward(request, response);
         } catch (NumberFormatException e) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid Note ID format.");
         } catch (Exception e) {
@@ -99,7 +99,6 @@ public class NoteController extends HttpServlet {
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An error occurred while retrieving the note.");
         }
     }
-
     
     
     //POST methods//
