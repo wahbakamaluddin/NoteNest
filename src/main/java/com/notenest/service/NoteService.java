@@ -1,18 +1,27 @@
 package com.notenest.service;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 
+import javax.imageio.ImageIO;
 import javax.servlet.ServletContext;
 import javax.servlet.http.Part;
 
 import com.notenest.bean.NoteBean;
 
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.rendering.PDFRenderer;
+import org.apache.pdfbox.pdmodel.PDPage;
+
+
 public class NoteService {
 //    private static final String UPLOAD_DIR = "/Volumes/kstone1tb/degree/Sem5/SKJ3013 Adv. Java/Project/uploads";
 	private static final String UPLOAD_DIR = "upload/pdf";
+	private static final String THUMBNAIL_DIR = "upload/thumbnail";
 
     public static String uploadNote(Part filePart, ServletContext context) throws IOException {
         if (filePart == null || filePart.getSubmittedFileName() == null) {
@@ -52,6 +61,40 @@ public class NoteService {
         String relativeFilePath = "/" + UPLOAD_DIR + "/" + newFileName;
         System.out.println(filePath);
         return relativeFilePath; // Return the stored file's full path
+    }
+    
+    public static String generateThumbnail(Part filePart, ServletContext context) throws IOException {
+        // Path for thumbnail folder
+        String thumbnailDir = context.getRealPath("/") + "upload/thumbnail";
+        File thumbnailDirFile = new File(thumbnailDir);
+        if (!thumbnailDirFile.exists()) {
+            if (!thumbnailDirFile.mkdirs()) {
+                throw new IOException("Failed to create thumbnail directory: " + thumbnailDir);
+            }
+        }
+
+        // Extract file name
+        String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+
+        // Create an InputStream from the Part (this avoids saving the file on disk)
+        InputStream inputStream = filePart.getInputStream();
+
+        // Load the PDF document from the InputStream (PDFBox 3.x method)
+        try (PDDocument document = PDDocument.load(inputStream)) {  // Load PDF from InputStream
+            // Create a PDFRenderer object to render the first page
+            PDFRenderer pdfRenderer = new PDFRenderer(document);
+            BufferedImage image = pdfRenderer.renderImageWithDPI(0, 150); // Render first page at 150 DPI
+
+            // Save the thumbnail as an image
+            String thumbnailFileName = fileName.replace(".pdf", ".png");
+            String thumbnailPath = thumbnailDir + File.separator + thumbnailFileName;
+            ImageIO.write(image, "PNG", new File(thumbnailPath));
+
+            // Return the thumbnail folder path
+            return thumbnailDir;
+        } catch (IOException e) {
+            throw new IOException("Error while generating thumbnail", e);
+        }
     }
         
     public static NoteBean createNoteBean(String fileName, int uploaderId, String subject, String filePath, String noteDescription, String noteTitle) {

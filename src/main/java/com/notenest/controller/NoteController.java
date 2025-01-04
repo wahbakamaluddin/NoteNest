@@ -130,6 +130,18 @@ public class NoteController extends HttpServlet {
 				e.printStackTrace();
 			}
 			
+			   // Generate the thumbnail for the uploaded PDF file using the Part object
+	        String thumbnailFolder = "";
+	        try {
+	            thumbnailFolder = NoteService.generateThumbnail(filePart, request.getServletContext());
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error generating the thumbnail.");
+	            return;
+	        }
+			
+	        System.out.println(thumbnailFolder);
+	        
 	        // Add notebean
 	        NoteBean note = NoteService.createNoteBean(fileName, uploaderId, subject, filePath, noteDescription, noteTitle);
 	        // Add note metadata to database
