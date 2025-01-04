@@ -76,83 +76,7 @@
               </div>
             </div>
             <div class="col-lg-8">
-              
-
-              <div class="d-flex tutorial-item mb-4">
-                <div class="img-wrap">
-                  <a href="#"><img src="images/img_1.jpg" alt="Image" class="img-fluid"></a>
-                </div>
-                <div>
-                  <h3><a href="#">Learning React Native</a></h3>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam tempore, saepe numquam. Doloremque culpa tenetur facere quisquam, animi illum possimus!</p>
-                  <p class="meta">
-                    <span class="mr-2 mb-2">1hr 24m</span>
-                    <span class="mr-2 mb-2">Advanced</span>
-                    <span class="mr-2 mb-2">Jun 18, 2020</span>
-                  </p>
-                  <p><a href="tutorial-single.html" class="btn btn-primary custom-btn">View</a></p>
-                </div>
-              </div>
-
-              <div class="d-flex tutorial-item mb-4">
-                <div class="img-wrap">
-                  <a href="#"><img src="images/img_2.jpg" alt="Image" class="img-fluid"></a>
-                </div>
-                <div>
-                  <h3><a href="#">Learning Angular 101</a></h3>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam tempore, saepe numquam. Doloremque culpa tenetur facere quisquam, animi illum possimus!</p>
-
-                  <p class="mb-0">
-                    <span class="brand-angular h5"></span>
-                    <span class="brand-javascript h5"></span>
-                  </p>
-                  <p class="meta">
-                    <span class="mr-2 mb-2">1hr 24m</span>
-                    <span class="mr-2 mb-2">Advanced</span>
-                    <span class="mr-2 mb-2">Jun 18, 2020</span>
-                  </p>
-                  
-                  <p><a href="tutorial-single.html" class="btn btn-primary custom-btn">View</a></p>
-                </div>
-              </div>
-
-              <div class="d-flex tutorial-item mb-4">
-                <div class="img-wrap">
-                  <a href="#"><img src="images/img_3.jpg" alt="Image" class="img-fluid"></a>
-                </div>
-                <div>
-                  <h3><a href="#">Learning Photoshop</a></h3>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam tempore, saepe numquam. Doloremque culpa tenetur facere quisquam, animi illum possimus!</p>
-                  <p class="mb-0">
-                    <span class="brand-adobephotoshop h5"></span>
-                  </p>
-                  <p class="meta">
-                    <span class="mr-2 mb-2">1hr 24m</span>
-                    <span class="mr-2 mb-2">Advanced</span>
-                    <span class="mr-2 mb-2">Jun 18, 2020</span>
-                  </p>
-                  <p><a href="tutorial-single.html" class="btn btn-primary custom-btn">View</a></p>
-                </div>
-              </div>
-
-              <div class="d-flex tutorial-item mb-4">
-                <div class="img-wrap">
-                  <a href="#"><img src="images/img_4.jpg" alt="Image" class="img-fluid"></a>
-                </div>
-                <div>
-                  <h3><a href="#">Advance Illustrator</a></h3>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam tempore, saepe numquam. Doloremque culpa tenetur facere quisquam, animi illum possimus!</p>
-                  <p class="mb-0">
-                    <span class="brand-adobeillustrator h5"></span>
-                  </p>
-                  <p class="meta">
-                    <span class="mr-2 mb-2">1hr 24m</span>
-                    <span class="mr-2 mb-2">Advanced</span>
-                    <span class="mr-2 mb-2">Jun 18, 2020</span>
-                  </p>
-                  <p><a href="tutorial-single.html" class="btn btn-primary custom-btn">View</a></p>
-                </div>
-              </div>
+             
 
 <%
     try {
@@ -186,9 +110,10 @@
                     <span class="mr-2 mb-2"><%= note.getSubject() %></span>
                     <span class="mr-2 mb-2"><%= note.getUploadDate() %></span>
                 </p>
-                <p>
-                    <a href="tutorial-single.jsp?id=<%= note.getId() %>" class="btn btn-primary custom-btn">View</a>
-                </p>
+				<p>
+				    <a href="<%= request.getContextPath() %>/viewNote/<%= note.getId() %>" class="btn btn-primary custom-btn">View</a>
+				</p>
+
             </div>
         </div>
     <% } %>
