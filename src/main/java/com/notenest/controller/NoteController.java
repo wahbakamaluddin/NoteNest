@@ -131,20 +131,20 @@ public class NoteController extends HttpServlet {
 			}
 			
 			   // Generate the thumbnail for the uploaded PDF file using the Part object
-	        String thumbnailFolder = "";
+	        String thumbnailPath = "";
 	        try {
-	            thumbnailFolder = NoteService.generateThumbnail(filePart, request.getServletContext());
+	            thumbnailPath = NoteService.generateThumbnail(filePart, request.getServletContext());
 	        } catch (Exception e) {
 	            e.printStackTrace();
 	            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error generating the thumbnail.");
 	            return;
 	        }
-			
-	        System.out.println(thumbnailFolder);
-	        
+	        System.out.println(thumbnailPath);
+				        
 	        // Add notebean
-	        NoteBean note = NoteService.createNoteBean(fileName, uploaderId, subject, filePath, noteDescription, noteTitle);
+	        NoteBean note = NoteService.createNoteBean(fileName, uploaderId, subject, filePath, noteDescription, noteTitle, thumbnailPath);
 	        // Add note metadata to database
+	        System.out.println("Note int conttroller:  " + note);
 	        NoteDAO noteDAO = new NoteDAO();
 	        noteDAO.uploadNote(note);
 

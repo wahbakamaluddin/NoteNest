@@ -24,11 +24,13 @@ public class NoteDAO {
                 note.setNoteId(rs.getInt("note_id"));
                 note.setFileName(rs.getString("file_name"));
                 note.setFilePath(rs.getString("file_path"));
-                note.setUploaderId(rs.getInt("uploader_id")); // Changed to int
+                note.setUploaderId(rs.getInt("uploader_id"));
                 note.setSubject(rs.getString("subject"));
                 note.setUploadDate(rs.getDate("upload_date").toLocalDate());
                 note.setNoteDescription(rs.getString("note_description"));
                 note.setNoteTitle(rs.getString("note_title"));
+                note.setThumbnailPath(rs.getString("thumbnail_path"));
+
                 notes.add(note);
             }
         }
@@ -64,7 +66,7 @@ public class NoteDAO {
 
     // Insert a new note
     public void uploadNote(NoteBean note) throws SQLException {
-        String query = "INSERT INTO Note (file_name, file_path, uploader_id, subject, upload_date, note_description, note_title) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO Note (file_name, file_path, uploader_id, subject, upload_date, note_description, note_title, thumbnail_path) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         
         try (Connection connection = DBUtil.getConnection();
              PreparedStatement stmt = connection.prepareStatement(query)) {
@@ -76,6 +78,7 @@ public class NoteDAO {
             stmt.setDate(5, Date.valueOf(note.getUploadDate()));
             stmt.setString(6, note.getNoteDescription());
             stmt.setString(7, note.getNoteTitle());
+            stmt.setString(8, note.getThumbnailPath());
 
             stmt.executeUpdate();
         }
@@ -106,7 +109,6 @@ public class NoteDAO {
         }
         return note;
     }
-    
 
     // Delete based on note_id
     public boolean deleteNoteById(int noteId) throws SQLException {

@@ -99,9 +99,10 @@
         <div class="d-flex tutorial-item mb-4">
             <div class="img-wrap">
                 <a href="#">
-                    <%-- <img src="<%= note.getImagePath() %>" alt="Image" class="img-fluid"> --%>
-                    <img src="images/hero_bg2.jpg" alt="Image" class="img-fluid">
-                </a>
+                    <%-- <img src="<%= request.getContextPath() %>${note.thumbnailPath}" alt="Image" class="img-fluid"> --%>
+                    <img src="<%= request.getContextPath() + note.getThumbnailPath() %>" alt="Image" class="img-fluid">
+<!--                     <img src="images/hero_bg2.jpg" alt="Image" class="img-fluid">
+ -->                </a>
             </div>
             <div>
                 <h3><a href="#"><%= note.getNoteTitle() %></a></h3>

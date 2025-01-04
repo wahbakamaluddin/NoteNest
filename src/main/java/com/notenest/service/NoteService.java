@@ -91,13 +91,14 @@ public class NoteService {
             ImageIO.write(image, "PNG", new File(thumbnailPath));
 
             // Return the thumbnail folder path
-            return thumbnailDir;
+            String relativeFilePath = "/" + THUMBNAIL_DIR + "/" + thumbnailFileName;
+            return relativeFilePath;
         } catch (IOException e) {
             throw new IOException("Error while generating thumbnail", e);
         }
     }
         
-    public static NoteBean createNoteBean(String fileName, int uploaderId, String subject, String filePath, String noteDescription, String noteTitle) {
+    public static NoteBean createNoteBean(String fileName, int uploaderId, String subject, String filePath, String noteDescription, String noteTitle, String thumbnailPath) {
         NoteBean note = new NoteBean();
         note.setFileName(fileName);
         note.setUploaderId(uploaderId);
@@ -106,6 +107,9 @@ public class NoteService {
         note.setFilePath(filePath);
         note.setNoteDescription(noteDescription); // Set the note description
         note.setNoteTitle(noteTitle); // Set the note title
+        note.setThumbnailPath(thumbnailPath);
+        System.out.println("note in NoteService" + note);
+        System.out.println("thumbnailPath in NoteService" + note.getThumbnailPath());
         return note;
     }
 

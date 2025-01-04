@@ -6,6 +6,7 @@ public class NoteBean {
     private int noteId; // Optional: Primary key if using a database
     private String fileName;
     private String filePath;
+    private String thumbnailPath;
     private int uploaderId;
     private String subject;
     private LocalDate uploadDate;
@@ -39,6 +40,15 @@ public class NoteBean {
         this.filePath = filePath;
     }
 
+    public String getThumbnailPath() {
+        return thumbnailPath;
+    }
+
+    public void setThumbnailPath(String thumbnailPath) {
+        this.thumbnailPath = thumbnailPath;
+    }
+
+    
     public int getUploaderId() {
         return uploaderId;
     }
@@ -92,11 +102,12 @@ public class NoteBean {
 
     @Override
     public String toString() {
-        return "Note{" +
+        return "NoteBean{" +
                 "noteId=" + noteId +
                 ", fileName='" + fileName + '\'' +
                 ", filePath='" + filePath + '\'' +
-                ", uploaderId='" + uploaderId + '\'' +
+                ", thumbnailPath='" + thumbnailPath + '\'' +
+                ", uploaderId=" + uploaderId +
                 ", subject='" + subject + '\'' +
                 ", uploadDate=" + uploadDate +
                 ", noteDescription='" + noteDescription + '\'' +
