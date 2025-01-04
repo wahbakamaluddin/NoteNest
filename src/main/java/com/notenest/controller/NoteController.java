@@ -21,7 +21,6 @@ import javax.servlet.http.Part;
 import com.notenest.bean.NoteBean;
 import com.notenest.dao.NoteDAO;
 import com.notenest.service.NoteService;
-import com.notenest.service.NoteService2;
 import com.google.gson.Gson;
 
 /**
@@ -115,7 +114,7 @@ public class NoteController extends HttpServlet {
 	    	// Retrieve metadata from upload.jsp HTTP POST
 	    	Part filePart = request.getPart("file"); // File uploaded from the form
 //	    	int uploaderId = (int) session.getAttribute("userId"); // Retrieve user ID from session
-	    	int uploaderId = 1234;
+	    	int uploaderId = 1;
 	    	String subject = request.getParameter("subject"); // Subject from the form
 	    	String fileName = filePart.getSubmittedFileName(); // Extract file name
 	    	String noteTitle = request.getParameter("noteTitle"); // Note title from the form

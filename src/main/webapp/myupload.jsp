@@ -43,19 +43,35 @@
                 <div class="row">
                     <div class="col-lg-8 mb-5">
                         <h2>My Uploads</h2>
-                        <form action="/addNote" method="post" enctype="multipart/form-data">
-                            <div class="form-group">
-                                <label for="file">Choose File</label>
-                                <input type="file" class="form-control" id="file" name="file">
-                            </div>
-                            <div class="form-group">
-                                <label for="description">Description</label>
-                                <textarea class="form-control" id="description" rows="4" placeholder="Add a description..."></textarea>
-                            </div>
-                            <div class="form-group">
-                                <input type="submit" value="Upload File" class="btn btn-primary btn-md text-white">
-                            </div>
-                        </form>
+						 <form action="addNote" method="post" enctype="multipart/form-data">
+						    <!-- Note Title -->
+						    <div class="form-group" style="margin-bottom: 10px;">
+						        <label for="noteTitle">Note Title:</label>
+						        <input type="text" id="noteTitle" name="noteTitle" class="form-control" placeholder="Enter note title" required><br>
+						    </div>
+						
+						    <!-- Note Description -->
+						    <div class="form-group" style="margin-bottom: 10px;">
+						        <label for="noteDescription">Note Description:</label>
+						        <textarea id="noteDescription" name="noteDescription" class="form-control" placeholder="Enter note description" rows="4" cols="50" required></textarea><br>
+						    </div>
+						
+						    <!-- Subject -->
+						    <div class="form-group" style="margin-bottom: 10px;">
+						        <label for="subject">Subject:</label>
+						        <input type="text" id="subject" name="subject" class="form-control" placeholder="Enter subject" required><br>
+						    </div>
+						
+						    <!-- File Upload -->
+						    <div class="form-group" style="margin-bottom: 10px;">
+						        <label for="file">Upload File:</label>
+						        <input type="file" id="file" name="file" class="form-control dropify" accept=".pdf" required><br>
+						    </div>
+						
+						    <div class="form-group">
+						        <button type="submit" class="btn btn-primary btn-md text-white">Upload</button>
+						    </div>
+						</form>
                     </div>
                 </div>
             </div>
