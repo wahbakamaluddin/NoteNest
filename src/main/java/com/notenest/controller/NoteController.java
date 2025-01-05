@@ -103,18 +103,17 @@ public class NoteController extends HttpServlet {
     //POST methods//
     // Method to add a note
     private void addNote(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//	    HttpSession session = request.getSession(false); // Check for session existence
-//	    if (session == null || session.getAttribute("userId") == null) {
-//	        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "User is not logged in.");
-//	        return;
-//	    }
+	    HttpSession session = request.getSession(false); // Check for session existence
+	    if (session == null || session.getAttribute("userId") == null) {
+	        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "User is not logged in.");
+	        return;
+	    }
 
 	    try {
 	    	
 	    	// Retrieve metadata from upload.jsp HTTP POST
 	    	Part filePart = request.getPart("file"); // File uploaded from the form
-//	    	int uploaderId = (int) session.getAttribute("userId"); // Retrieve user ID from session
-	    	int uploaderId = 1;
+	    	int uploaderId = (int) session.getAttribute("userId"); // Retrieve user ID from session
 	    	String subject = request.getParameter("subject"); // Subject from the form
 	    	String fileName = filePart.getSubmittedFileName(); // Extract file name
 	    	String noteTitle = request.getParameter("noteTitle"); // Note title from the form

@@ -120,6 +120,17 @@
    							<li><a href="<%= request.getContextPath() %>/myupload.jsp" class="nav-link" id="myuploads-link">My Uploads</a></li>
 							<li><a href="<%= request.getContextPath() %>/tutorials.jsp" class="nav-link" id="tutorials-link">Tutorials</a></li>
     						<li><a href="<%= request.getContextPath() %>/about.jsp" class="nav-link" id="about-link">About Us</a></li>
+    						  <% 
+            String username = (String) session.getAttribute("username");
+            if (username != null) { 
+        %>
+            <div class="welcome-message">
+                <span>Welcome, <strong><%= username %></strong></span>
+                <a href="<%= request.getContextPath() %>/logout.jsp" class="logout-btn">Log Out</a>
+            </div>
+        <% } else { %>
+            <a href="<%= request.getContextPath() %>/login.jsp" class="login-btn">Log In</a>
+        <% } %>
 						</ul>
 
                         </nav>
