@@ -1,140 +1,227 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%-- <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <title>Login &mdash; NoteNest</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
-    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/style.css">
-    <script src="jquery/jquery-3.4.1.js"></script>
-    <script src="jquery/jquery.validate.min.js"></script>
     <style>
-        body {
-            background-color: #faf6f1;
-            margin: 0;
-            font-family: Arial, sans-serif;
+        .full-page-section {
+            height: 100vh;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-        }
-
-        #welcome-message {
-            font-size: 36px;
-            color: #5e4420;
-            font-weight: bold;
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        #trademark {
-            font-style: italic;
-            font-family: 'Brush Script MT', cursive;
-            color: #a47551;
-            font-size: 20px;
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .container {
-            padding: 20px;
-            background-color: #ffffff;
-            border: 1px solid #d6cbc0;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            max-width: 400px;
-            text-align: center;
-        }
-
-        h2 {
-            font-size: 24px;
-            color: #5e4420;
-            margin-bottom: 20px;
-        }
-
-        .form-control {
-            margin-bottom: 15px;
-            border: 1px solid #d6cbc0;
-            border-radius: 4px;
-            padding: 10px;
-        }
-
-        .btn {
-            background-color: #a47551;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 4px;
-            cursor: pointer;
-            display: block;
-            width: 100%;
-            margin-bottom: 10px;
-        }
-
-        .btn:hover {
-            background-color: #8a5c3b;
-        }
-
-        .register-link {
-            margin-top: 10px;
-            color: #5e4420;
-            text-decoration: none;
-            display: block;
-        }
-
-        .register-link:hover {
-            text-decoration: underline;
-        }
-
-        #err {
-            margin-top: 10px;
-            color: red;
-            text-align: center;
+            background-color: hsl(0, 0%, 96%);
         }
     </style>
 </head>
+<body class="bg-light">
+    <!-- Section: Full-page block -->
+    <section class="full-page-section">
+        <div class="px-4 py-5 px-md-5 text-center text-lg-start">
+            <div class="container">
+                <div class="row gx-lg-5 align-items-center">
+                    <div class="col-lg-6 mb-5 mb-lg-0">
+                        <h1 class="my-5 display-3 fw-bold ls-tight">
+                            NoteNest <br />
+                            <span class="text-primary">for sharing notes</span>
+                        </h1>
+                        <p style="color: hsl(217, 10%, 50.8%)">
+                            Share, collaborate, and explore a world of ideas. NoteNest empowers you to create and share notes 
+                            effortlessly. Whether for business, education, or personal use, unlock the potential of your thoughts.
+                        </p>
+                    </div>
 
-<body>
-    <!-- Welcome and Trademark -->
-    <div id="welcome-message">WELCOME TO NOTENEST™</div>
-    <div id="trademark">Your trusted note-sharing platform</div>
+                    <div class="col-lg-6 mb-5 mb-lg-0">
+                        <div class="card">
+                            <div class="card-body py-5 px-md-5">
+                               <form id="frm-login" name="frm-login">
+                                    <div id="err" class="alert alert-danger mt-3 d-none" role="alert"></div>
+                                    <div class="form-outline mb-4">
+                                        <label class="form-label" for="username">Username</label>
+                                        <input type="text" class="form-control" id="username" name="username" required />
+                                    </div>
 
-    <!-- Login Container -->
-    <div class="container">
-        <h2>Login</h2>
-        <form id="frm-login">
-            <input type="text" id="username" name="username" class="form-control" placeholder="Enter Username" required>
-            <input type="password" id="password" name="password" class="form-control" placeholder="Enter Password" required>
-            <button type="button" class="btn" onclick="login()">Login</button>
-            <button type="button" class="btn" onclick="window.location.href='forgotpassword.jsp'">Forgot Password</button>
-        </form>
-        <div id="err"></div>
-        <a href="register.jsp" class="register-link">Don't have an account? Register here</a>
-    </div>
+                                    <div class="form-outline mb-4">
+                                        <label class="form-label" for="password">Password</label>
+                                        <input type="password" class="form-control" id="password" name="password" required />
+                                    </div>					
+                                    <div class="text-center mt-3">
+                                        <p>Don't have an account? <a href="register.jsp" class="link-info" onclick="register()">Register here</a></p>
+                                    </div>
+                                    <div class="d-flex justify-content-center mt-4">
+                                        <button type="button" class="btn btn-primary px-5 rounded-pill" onclick="login()">Sign In</button>
+                                    </div>
 
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
+    <!-- jQuery -->
+    <script src="jquery/jquery-3.4.1.js"></script>
+    <script src="jquery/jquery.validate.min.js"></script>
     <script>
+        var msg = null;
+
         function login() {
             var data = $("#frm-login").serialize();
+
             $.ajax({
                 type: 'POST',
                 url: 'validate.jsp',
                 data: data,
                 dataType: 'JSON',
-                success: function (data) {
-                    if (data[0].msg === "1") {
+                success: function (response) {
+                    msg = response.msg;
+                    console.log(msg);
+
+                    if (msg == "1") {
                         window.location.replace("index.jsp");
+                    } else if (msg == "3") {
+                        $("#err").removeClass("d-none").html("Username or Password do not match").fadeIn('slow');
                     } else {
-                        $("#err").html("Invalid username or password.");
+                        $("#err").removeClass("d-none").html("An unexpected error occurred").fadeIn('slow');
                     }
                 }
             });
+        }
+
+        function register() {
+            window.location.href = 'register.jsp'; // Replace 'register.jsp' with your registration page path
+        }
+    </script>
+</body>
+</html>
+
+ --%>
+ 
+ 
+ <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+    <style>
+        .full-page-section {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: hsl(0, 0%, 96%);
+        }
+    </style>
+</head>
+
+<body class="bg-light">
+    <!-- Section: Full-page block -->
+    <section class="full-page-section">
+        <div class="px-4 py-5 px-md-5 text-center text-lg-start">
+            <div class="container">
+                <div class="row gx-lg-5 align-items-center">
+                    <div class="col-lg-6 mb-5 mb-lg-0">
+                        <h1 class="my-5 display-3 fw-bold ls-tight">
+                            NoteNest <br />
+                            <span class="text-primary">for sharing notes</span>
+                        </h1>
+                        <p style="color: hsl(217, 10%, 50.8%)">
+                            Share, collaborate, and explore a world of ideas. NoteNest empowers you to create and share notes
+                            effortlessly. Whether for business, education, or personal use, unlock the potential of your thoughts.
+                        </p>
+                    </div>
+
+                    <div class="col-lg-6 mb-5 mb-lg-0">
+                        <div class="card">
+                            <div class="card-body py-5 px-md-5">
+                                <form id="frm-login" name="frm-login">
+                                    <div id="err" class="alert alert-danger mt-3 d-none" role="alert"></div>
+                                    <div class="form-outline mb-4">
+                                        <label class="form-label" for="username">Username</label>
+                                        <input type="text" class="form-control" id="username" name="username" required />
+                                    </div>
+
+                                    <div class="form-outline mb-4">
+                                        <label class="form-label" for="password">Password</label>
+                                        <input type="password" class="form-control" id="password" name="password" required />
+                                    </div>
+                                    <div class="text-center mt-3">
+                                        <p>Don't have an account? <a href="register.jsp" class="link-info" onclick="register()">Register here</a></p>
+                                    </div>
+                                    <div class="d-flex justify-content-center mt-4">
+                                        <button type="button" class="btn btn-primary px-5 rounded-pill" onclick="login()">Sign In</button>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- jQuery (Ensure it's loaded before other scripts) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
+
+    <!-- jQuery Validation (if required) -->
+    <script src="jquery/jquery.validate.min.js"></script>
+    
+    <!-- Custom Script -->
+    <script>
+        var msg = null;
+
+        function login() {
+            var data = $("#frm-login").serialize();
+
+            $.ajax({
+                type: 'POST',
+                url: 'validate.jsp',
+                data: data,
+                dataType: 'JSON',
+                success: function (response) {
+                    msg = response.msg;
+                    console.log(msg);
+
+                    if (msg == "1") {
+                        window.location.replace("index.jsp");
+                    } else if (msg == "3") {
+                        $("#err").removeClass("d-none").html("Username or Password do not match").fadeIn('slow');
+                    } else {
+                        $("#err").removeClass("d-none").html("An unexpected error occurred").fadeIn('slow');
+                    }
+                }
+            });
+        }
+
+        function register() {
+            window.location.href = 'register.jsp'; // Replace 'register.jsp' with your registration page path
         }
     </script>
 </body>
 
 </html>
+ 
