@@ -132,7 +132,7 @@ public class NoteService {
     
     private void deleteFile(String filePath, String notFoundMessage, String deleteFailMessage) throws Exception {
         if (filePath == null || filePath.isEmpty()) {
-            throw new Exception(notFoundMessage);
+        	return;
         }
 
         File file = new File(filePath);
