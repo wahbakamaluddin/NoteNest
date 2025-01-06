@@ -73,8 +73,9 @@
 				</div>
 				<div class="row justify-content-center">
 					<div class="col-12">
-						<div class="heading mb-4 justify-content-center">
-							<span class="caption">Latest</span><h2>Notes</h2>
+						<div class="heading mb-4 text-center">
+							<span class="caption">Latest</span>
+							<h2>Notes</h2>
 						</div>
 					</div>
 					<div class="col-lg-8 ">
