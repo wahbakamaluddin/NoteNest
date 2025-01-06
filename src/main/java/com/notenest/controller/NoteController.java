@@ -161,57 +161,6 @@ public class NoteController extends HttpServlet {
 		}
 	}
 
-	// Method to delete a note
-	//    private void deleteNote(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	//        try {
-	//            // Retrieve the note ID from the request
-	//            String noteIdParam = request.getParameter("noteId");
-	//            if (noteIdParam == null || noteIdParam.isEmpty()) {
-	//                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Note ID is required.");
-	//                return;
-	//            }
-	//            
-	//            int noteId = Integer.parseInt(noteIdParam);
-	//
-	//            // Fetch the file path for the note from the database
-	//            NoteDAO noteDAO = new NoteDAO();
-	//            String filePath = noteDAO.getNoteFilePath(noteId);
-	//            if (filePath == null || filePath.isEmpty()) {
-	//                response.sendError(HttpServletResponse.SC_NOT_FOUND, "Note not found.");
-	//                return;
-	//            }
-	//
-	//            // Delete the file from the filesystem
-	//            File file = new File(filePath);
-	//            if (file.exists()) {
-	//                if (!file.delete()) {
-	//                    response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Failed to delete the file from the filesystem.");
-	//                    return;
-	//                }
-	//            }
-	//
-	//            // Remove the metadata from the database
-	//            boolean isDeleted = noteDAO.deleteNoteById(noteId);
-	//            if (!isDeleted) {
-	//                response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Failed to delete the note metadata from the database.");
-	//                return;
-	//            }
-	//
-	//            // Respond to client
-	//            response.getWriter().println("Note deleted successfully.");
-	//        } catch (NumberFormatException e) {
-	//            // Handle invalid note ID format
-	//            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid Note ID format.");
-	//        } catch (Exception e) {
-	//            // Log the error (optional)
-	//            e.printStackTrace();
-	//
-	//            // Respond with a generic error message
-	//            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An error occurred while deleting the note.");
-	//        }
-	//    }
-
-
 	private void deleteNote(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			// Retrieve the note ID from the request
@@ -229,9 +178,9 @@ public class NoteController extends HttpServlet {
 
 			if (isDeleted) {
 				// Redirect to myupload.jsp after successful deletion
-				response.sendRedirect(request.getContextPath() + "/myupload.jsp");
+				response.sendRedirect(request.getContextPath() + "/myupload.jsp?deleteStatus=success");
 			} else {
-				response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Failed to delete the note.");
+				response.sendRedirect(request.getContextPath() + "/myupload.jsp?deleteStatus=error");
 			}
 		} catch (NumberFormatException e) {
 			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid Note ID format.");

@@ -46,8 +46,21 @@
 			<div class="container">
 				<div class="row justify-content-center">
 					<div class="col-lg-8 mb-5">
-						<!-- 						<h2>My Uploads</h2>
- -->
+						<!-- Toast Container -->
+						<div aria-live="polite" aria-atomic="true"
+							class="position-fixed top-0 end-0 p-3" style="z-index: 1050">
+							<div id="deleteToast"
+								class="toast align-items-center text-bg-success border-0"
+								role="alert" aria-live="assertive" aria-atomic="true"
+								data-bs-delay="3000">
+								<div class="d-flex">
+									<div class="toast-body">Note deleted successfully!</div>
+									<button type="button"
+										class="btn-close btn-close-white me-2 m-auto"
+										data-bs-dismiss="toast" aria-label="Close"></button>
+								</div>
+							</div>
+						</div>
 						<!-- Pills Navigation -->
 						<ul class="nav nav-pills mb-4" role="tablist"
 							style="margin-bottom: 20px;">
@@ -127,13 +140,15 @@
 														class="btn btn-primary custom-btn"> View</a> <a
 														href="editNote.jsp?id=<%=note.getId()%>"
 														class="btn btn-primary custom-btn"> Edit</a>
-												<form action="<%=request.getContextPath()%>/deleteNote" method="POST" 
-      onsubmit="return confirm('Are you sure you want to delete this note?');">
-    <input type="hidden" name="noteId" value="<%=note.getId()%>">
-    <button type="submit" class="btn btn-danger custom-btn">Delete</button>
-</form>
+												<form action="<%=request.getContextPath()%>/deleteNote"
+													method="POST"
+													onsubmit="return confirm('Are you sure you want to delete this note?');">
+													<input type="hidden" name="noteId"
+														value="<%=note.getId()%>">
+													<button type="submit" class="btn btn-danger custom-btn">Delete</button>
+												</form>
 
-												
+
 
 											</div>
 										</div>
