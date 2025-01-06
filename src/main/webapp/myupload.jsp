@@ -83,7 +83,7 @@
 												NoteDAO noteDAO = new NoteDAO();
 												List<NoteBean> notesById = noteDAO.getNoteByUserId(userId); // Pass userId to the DAO method
 												session.setAttribute("notesById", notesById); // Store notes in the session
-												
+
 											} else {
 												// Handle the case where the user is not logged in or userId is not found
 												System.out.println("User is not logged in.");
@@ -126,10 +126,14 @@
 														href="<%=request.getContextPath()%>/viewNote/<%=note.getId()%>"
 														class="btn btn-primary custom-btn"> View</a> <a
 														href="editNote.jsp?id=<%=note.getId()%>"
-														class="btn btn-primary custom-btn"> Edit</a> <a
-														href="<%=request.getContextPath()%>/viewNote/<%=note.getId()%>"
-														class="btn btn-primary custom-btn"> Delete</a>
-												</p>
+														class="btn btn-primary custom-btn"> Edit</a>
+												<form action="<%=request.getContextPath()%>/deleteNote" method="POST" 
+      onsubmit="return confirm('Are you sure you want to delete this note?');">
+    <input type="hidden" name="noteId" value="<%=note.getId()%>">
+    <button type="submit" class="btn btn-danger custom-btn">Delete</button>
+</form>
+
+												
 
 											</div>
 										</div>

@@ -28,253 +28,254 @@ import com.google.gson.Gson;
  */
 @WebServlet({"/getAllNote", "/addNote", "/deleteNote", "/editNote", "/viewNote/*"})
 @MultipartConfig(
-	    fileSizeThreshold = 1024 * 1024 * 2, // 2MB (threshold for writing files to disk)
-	    maxFileSize = 1024 * 1024 * 10,      // 10MB (maximum file size)
-	    maxRequestSize = 1024 * 1024 * 50    // 50MB (maximum request size)
-	)
+		fileSizeThreshold = 1024 * 1024 * 2, // 2MB (threshold for writing files to disk)
+		maxFileSize = 1024 * 1024 * 10,      // 10MB (maximum file size)
+		maxRequestSize = 1024 * 1024 * 50    // 50MB (maximum request size)
+		)
 public class NoteController extends HttpServlet {
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    // Handle GET requests (if needed)
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	String path = request.getServletPath();
-    	
-    	switch (path) {
-        case "/viewNote":
-            viewNote(request, response);
-    	}
-        // Handle GET requests here, if necessary
-    }
+	// Handle GET requests (if needed)
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String path = request.getServletPath();
 
-    // Handle POST requests and route based on the action
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	String path = request.getServletPath();
+		switch (path) {
+		case "/viewNote":
+			viewNote(request, response);
+		}
+		// Handle GET requests here, if necessary
+	}
 
-        switch (path) {
-            case "/addNote":
-                addNote(request, response);
-                break;
-            case "/deleteNote":
-                deleteNote(request, response);
-                break;
-            case "/editNote":
-                editNote(request, response);
-                break;
-            default:
-                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Unknown action: " + path);
-        }
-    }
-    
-    //GET methods
-    private void viewNote(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	String[] pathParts = request.getRequestURI().split("/");
-        String noteIdParam = pathParts[pathParts.length - 1];
-        if (noteIdParam == null || noteIdParam.isEmpty()) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Note ID is required.");
-            return;
-        }
+	// Handle POST requests and route based on the action
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String path = request.getServletPath();
 
-        try {
-            int noteId = Integer.parseInt(noteIdParam);
+		switch (path) {
+		case "/addNote":
+			addNote(request, response);
+			break;
+		case "/deleteNote":
+			deleteNote(request, response);
+			break;
+		case "/editNote":
+			editNote(request, response);
+			break;
+		default:
+			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Unknown action: " + path);
+		}
+	}
 
-            // Fetch the note details from the database
-            NoteDAO noteDAO = new NoteDAO();
-            NoteBean note = noteDAO.getNoteById(noteId); // Assume this method exists in NoteDAO
+	//GET methods
+	private void viewNote(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String[] pathParts = request.getRequestURI().split("/");
+		String noteIdParam = pathParts[pathParts.length - 1];
+		if (noteIdParam == null || noteIdParam.isEmpty()) {
+			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Note ID is required.");
+			return;
+		}
 
-            if (note == null) {
-                response.sendError(HttpServletResponse.SC_NOT_FOUND, "Note not found.");
-                return;
-            }
+		try {
+			int noteId = Integer.parseInt(noteIdParam);
 
-            // Set the note details in the request scope
-            request.setAttribute("note", note);
+			// Fetch the note details from the database
+			NoteDAO noteDAO = new NoteDAO();
+			NoteBean note = noteDAO.getNoteById(noteId); // Assume this method exists in NoteDAO
 
-            // Forward to the detailed page
-            request.getRequestDispatcher("/viewNote.jsp").forward(request, response);
-        } catch (NumberFormatException e) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid Note ID format.");
-        } catch (Exception e) {
-            e.printStackTrace();
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An error occurred while retrieving the note.");
-        }
-    }
-    
-    
-    //POST methods//
-    // Method to add a note
-    private void addNote(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	    HttpSession session = request.getSession(false); // Check for session existence
-	    if (session == null || session.getAttribute("userId") == null) {
-	        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "User is not logged in.");
-	        return;
-	    }
+			if (note == null) {
+				response.sendError(HttpServletResponse.SC_NOT_FOUND, "Note not found.");
+				return;
+			}
 
-	    try {
-	    	
-	    	// Retrieve metadata from upload.jsp HTTP POST
-	    	Part filePart = request.getPart("file"); // File uploaded from the form
-	    	int uploaderId = (int) session.getAttribute("userId"); // Retrieve user ID from session
-	    	String subject = request.getParameter("subject"); // Subject from the form
-	    	String fileName = filePart.getSubmittedFileName(); // Extract file name
-	    	String noteTitle = request.getParameter("noteTitle"); // Note title from the form
-	    	String noteDescription = request.getParameter("noteDescription"); // Note description from the form
-	    	LocalDate currentDate = LocalDate.now(); // Current date for upload
+			// Set the note details in the request scope
+			request.setAttribute("note", note);
 
-	        // Save the uploaded file
-	        String filePath = "";
+			// Forward to the detailed page
+			request.getRequestDispatcher("/viewNote.jsp").forward(request, response);
+		} catch (NumberFormatException e) {
+			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid Note ID format.");
+		} catch (Exception e) {
+			e.printStackTrace();
+			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An error occurred while retrieving the note.");
+		}
+	}
+
+
+	//POST methods//
+	// Method to add a note
+	private void addNote(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession(false); // Check for session existence
+		if (session == null || session.getAttribute("userId") == null) {
+			response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "User is not logged in.");
+			return;
+		}
+
+		try {
+
+			// Retrieve metadata from upload.jsp HTTP POST
+			Part filePart = request.getPart("file"); // File uploaded from the form
+			int uploaderId = (int) session.getAttribute("userId"); // Retrieve user ID from session
+			String subject = request.getParameter("subject"); // Subject from the form
+			String fileName = filePart.getSubmittedFileName(); // Extract file name
+			String noteTitle = request.getParameter("noteTitle"); // Note title from the form
+			String noteDescription = request.getParameter("noteDescription"); // Note description from the form
+			LocalDate currentDate = LocalDate.now(); // Current date for upload
+
+			// Save the uploaded file
+			String filePath = "";
 			try {
 				filePath = NoteService.uploadNote(filePart, request.getServletContext());
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
-			   // Generate the thumbnail for the uploaded PDF file using the Part object
-	        String thumbnailPath = "";
-	        try {
-	            thumbnailPath = NoteService.generateThumbnail(filePart, request.getServletContext());
-	        } catch (Exception e) {
-	            e.printStackTrace();
-	            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error generating the thumbnail.");
-	            return;
-	        }
-	        System.out.println(thumbnailPath);
-				        
-	        // Add notebean
-	        NoteBean note = NoteService.createNoteBean(fileName, uploaderId, subject, filePath, noteDescription, noteTitle, thumbnailPath);
-	        // Add note metadata to database
-	        System.out.println("Note int conttroller:  " + note);
-	        NoteDAO noteDAO = new NoteDAO();
-	        noteDAO.uploadNote(note);
 
-	        // Set a success message in the session
-	        session.setAttribute("successMessage", "File uploaded and metadata saved successfully.");
+			// Generate the thumbnail for the uploaded PDF file using the Part object
+			String thumbnailPath = "";
+			try {
+				thumbnailPath = NoteService.generateThumbnail(filePart, request.getServletContext());
+			} catch (Exception e) {
+				e.printStackTrace();
+				response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error generating the thumbnail.");
+				return;
+			}
+			System.out.println(thumbnailPath);
 
-	        // Redirect to myupload.jsp after the note is uploaded successfully
-	        response.sendRedirect("myupload.jsp");
-	    } catch (Exception e) {
-	        // Log the error (optional)
-	        e.printStackTrace();
+			// Add notebean
+			NoteBean note = NoteService.createNoteBean(fileName, uploaderId, subject, filePath, noteDescription, noteTitle, thumbnailPath);
+			// Add note metadata to database
+			System.out.println("Note int conttroller:  " + note);
+			NoteDAO noteDAO = new NoteDAO();
+			noteDAO.uploadNote(note);
 
-	        // Respond with an error message
-	        response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An error occurred while uploading the file.");
-	    }
+			// Set a success message in the session
+			session.setAttribute("successMessage", "File uploaded and metadata saved successfully.");
+
+			// Redirect to myupload.jsp after the note is uploaded successfully
+			response.sendRedirect("myupload.jsp");
+		} catch (Exception e) {
+			// Log the error (optional)
+			e.printStackTrace();
+
+			// Respond with an error message
+			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An error occurred while uploading the file.");
+		}
 	}
-    
-    // Method to delete a note
-//    private void deleteNote(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        try {
-//            // Retrieve the note ID from the request
-//            String noteIdParam = request.getParameter("noteId");
-//            if (noteIdParam == null || noteIdParam.isEmpty()) {
-//                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Note ID is required.");
-//                return;
-//            }
-//            
-//            int noteId = Integer.parseInt(noteIdParam);
-//
-//            // Fetch the file path for the note from the database
-//            NoteDAO noteDAO = new NoteDAO();
-//            String filePath = noteDAO.getNoteFilePath(noteId);
-//            if (filePath == null || filePath.isEmpty()) {
-//                response.sendError(HttpServletResponse.SC_NOT_FOUND, "Note not found.");
-//                return;
-//            }
-//
-//            // Delete the file from the filesystem
-//            File file = new File(filePath);
-//            if (file.exists()) {
-//                if (!file.delete()) {
-//                    response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Failed to delete the file from the filesystem.");
-//                    return;
-//                }
-//            }
-//
-//            // Remove the metadata from the database
-//            boolean isDeleted = noteDAO.deleteNoteById(noteId);
-//            if (!isDeleted) {
-//                response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Failed to delete the note metadata from the database.");
-//                return;
-//            }
-//
-//            // Respond to client
-//            response.getWriter().println("Note deleted successfully.");
-//        } catch (NumberFormatException e) {
-//            // Handle invalid note ID format
-//            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid Note ID format.");
-//        } catch (Exception e) {
-//            // Log the error (optional)
-//            e.printStackTrace();
-//
-//            // Respond with a generic error message
-//            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An error occurred while deleting the note.");
-//        }
-//    }
+
+	// Method to delete a note
+	//    private void deleteNote(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	//        try {
+	//            // Retrieve the note ID from the request
+	//            String noteIdParam = request.getParameter("noteId");
+	//            if (noteIdParam == null || noteIdParam.isEmpty()) {
+	//                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Note ID is required.");
+	//                return;
+	//            }
+	//            
+	//            int noteId = Integer.parseInt(noteIdParam);
+	//
+	//            // Fetch the file path for the note from the database
+	//            NoteDAO noteDAO = new NoteDAO();
+	//            String filePath = noteDAO.getNoteFilePath(noteId);
+	//            if (filePath == null || filePath.isEmpty()) {
+	//                response.sendError(HttpServletResponse.SC_NOT_FOUND, "Note not found.");
+	//                return;
+	//            }
+	//
+	//            // Delete the file from the filesystem
+	//            File file = new File(filePath);
+	//            if (file.exists()) {
+	//                if (!file.delete()) {
+	//                    response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Failed to delete the file from the filesystem.");
+	//                    return;
+	//                }
+	//            }
+	//
+	//            // Remove the metadata from the database
+	//            boolean isDeleted = noteDAO.deleteNoteById(noteId);
+	//            if (!isDeleted) {
+	//                response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Failed to delete the note metadata from the database.");
+	//                return;
+	//            }
+	//
+	//            // Respond to client
+	//            response.getWriter().println("Note deleted successfully.");
+	//        } catch (NumberFormatException e) {
+	//            // Handle invalid note ID format
+	//            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid Note ID format.");
+	//        } catch (Exception e) {
+	//            // Log the error (optional)
+	//            e.printStackTrace();
+	//
+	//            // Respond with a generic error message
+	//            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An error occurred while deleting the note.");
+	//        }
+	//    }
 
 
-    private void deleteNote(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        try {
-            // Retrieve the note ID from the request
-            String noteIdParam = request.getParameter("noteId");
-            if (noteIdParam == null || noteIdParam.isEmpty()) {
-                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Note ID is required.");
-                return;
-            }
+	private void deleteNote(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try {
+			// Retrieve the note ID from the request
+			String noteIdParam = request.getParameter("noteId");
+			if (noteIdParam == null || noteIdParam.isEmpty()) {
+				response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Note ID is required.");
+				return;
+			}
 
-            int noteId = Integer.parseInt(noteIdParam);
+			int noteId = Integer.parseInt(noteIdParam);
 
-            // Call the NoteService to handle the deletion
-            NoteService noteService = new NoteService();
-            boolean isDeleted = noteService.deleteNoteById(noteId);
+			// Call the NoteService to handle the deletion
+			NoteService noteService = new NoteService();
+			boolean isDeleted = noteService.deleteNoteById(noteId);
 
-            if (isDeleted) {
-                response.getWriter().println("Note deleted successfully.");
-            } else {
-                response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Failed to delete the note.");
-            }
-        } catch (NumberFormatException e) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid Note ID format.");
-        } catch (Exception e) {
-            e.printStackTrace();
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An error occurred while deleting the note.");
-        }
-    }
+			if (isDeleted) {
+				// Redirect to myupload.jsp after successful deletion
+				response.sendRedirect(request.getContextPath() + "/myupload.jsp");
+			} else {
+				response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Failed to delete the note.");
+			}
+		} catch (NumberFormatException e) {
+			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid Note ID format.");
+		} catch (Exception e) {
+			e.printStackTrace();
+			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An error occurred while deleting the note.");
+		}
+	}
 
-    
-    // Method to edit a note
-    private void editNote(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        try {
-            // Retrieve parameters
-            String noteIdParam = request.getParameter("noteId");
-            String subject = request.getParameter("subject");
-            String noteDescription = request.getParameter("noteDescription");
-            String noteTitle = request.getParameter("noteTitle");
 
-            // Validate inputs
-            if (noteIdParam == null && subject == null && noteDescription == null && noteTitle == null ||
-                noteIdParam.isEmpty() && subject.isEmpty() && noteDescription.isEmpty() && noteTitle.isEmpty()) {
-                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "At least one field is filled");
-                return;
-            }
+	// Method to edit a note
+	private void editNote(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try {
+			// Retrieve parameters
+			String noteIdParam = request.getParameter("noteId");
+			String subject = request.getParameter("subject");
+			String noteDescription = request.getParameter("noteDescription");
+			String noteTitle = request.getParameter("noteTitle");
 
-            int noteId = Integer.parseInt(noteIdParam);
+			// Validate inputs
+			if (noteIdParam == null && subject == null && noteDescription == null && noteTitle == null ||
+					noteIdParam.isEmpty() && subject.isEmpty() && noteDescription.isEmpty() && noteTitle.isEmpty()) {
+				response.sendError(HttpServletResponse.SC_BAD_REQUEST, "At least one field is filled");
+				return;
+			}
 
-            // Update the metadata using NoteDAO
-            NoteDAO noteDAO = new NoteDAO();
-            noteDAO.editNoteMetadata( noteId, subject, noteDescription, noteTitle);
+			int noteId = Integer.parseInt(noteIdParam);
 
-            // Respond to the client
+			// Update the metadata using NoteDAO
+			NoteDAO noteDAO = new NoteDAO();
+			noteDAO.editNoteMetadata( noteId, subject, noteDescription, noteTitle);
 
-	        // Redirect to myupload.jsp after the note is uploaded successfully
-	        response.sendRedirect("myupload.jsp");
-        } catch (NumberFormatException e) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid Note ID format.");
-        } catch (Exception e) {
-            e.printStackTrace();
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An error occurred while updating the note metadata.");
-        }
-    }
-        
+			// Respond to the client
+
+			// Redirect to myupload.jsp after the note is uploaded successfully
+			response.sendRedirect("myupload.jsp");
+		} catch (NumberFormatException e) {
+			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid Note ID format.");
+		} catch (Exception e) {
+			e.printStackTrace();
+			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An error occurred while updating the note metadata.");
+		}
+	}
+
 }
 
 
