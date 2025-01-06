@@ -7,7 +7,6 @@
 
 <%
     JSONArray list = new JSONArray();
-    Connection con =  DBUtil.getConnection();
     PreparedStatement pst;
     
     try {
@@ -17,8 +16,8 @@
         String password = request.getParameter("password");
 
         // Instantiate the DAO
-        
-		UserDAO userDAO = new UserDAO(con); // Pass connection to the DAO        
+         
+		UserDAO userDAO = new UserDAO(); // Pass connection to the DAO        
         
         // Get the user object from the DAO by username and password
         user = userDAO.checkLogin(username, password); 

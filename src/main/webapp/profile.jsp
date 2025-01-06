@@ -1,5 +1,5 @@
 <%@ page import="com.notenest.bean.UserBean"%>
-<%@ page import="com.notenest.dao.UserDAO2"%>
+<%@ page import="com.notenest.dao.UserDAO"%>
 <%@ page import="com.notenest.util.DBUtil"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -13,7 +13,7 @@
     }
 
     // Fetch user details
-            UserDAO2 userDAO = new UserDAO2();
+            UserDAO userDAO = new UserDAO();
             UserBean user = userDAO.getUserByUserId(userId);
 
 %>

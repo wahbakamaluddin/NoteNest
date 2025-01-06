@@ -9,10 +9,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class UserDAO2 {
-
+  
     // Method to check user login credentials
     public UserBean checkLogin(String username, String password) throws SQLException {
-        String query = "SELECT * FROM user WHERE LOWER(username) = LOWER(?) AND password = ?";
+        String query = "SELECT * FROM User WHERE LOWER(username) = LOWER(?) AND password = ?";
         try (Connection connection = DBUtil.getConnection();
              PreparedStatement stmt = connection.prepareStatement(query)) {
 
@@ -45,7 +45,7 @@ public class UserDAO2 {
 
     // Method to insert a new user
     public UserBean insertUser(UserBean user) throws SQLException {
-        String query = "INSERT INTO user (username, password, email, full_name) VALUES (?, ?, ?, ?)";
+        String query = "INSERT INTO User (username, password, email, full_name) VALUES (?, ?, ?, ?)";
         try (Connection connection = DBUtil.getConnection();
              PreparedStatement stmt = connection.prepareStatement(query)) {
 
@@ -70,7 +70,7 @@ public class UserDAO2 {
 
     // Method to get user ID by username
     public int getUserIdByUsername(String username) throws SQLException {
-        String query = "SELECT user_id FROM user WHERE LOWER(username) = LOWER(?)";
+        String query = "SELECT user_id FROM User WHERE LOWER(username) = LOWER(?)";
         try (Connection connection = DBUtil.getConnection();
              PreparedStatement stmt = connection.prepareStatement(query)) {
 
@@ -86,7 +86,7 @@ public class UserDAO2 {
 
     // Method to get user by user ID
     public UserBean getUserByUserId(int userId) throws SQLException {
-        String query = "SELECT * FROM user WHERE user_id = ?";
+        String query = "SELECT * FROM User WHERE user_id = ?";
         try (Connection connection = DBUtil.getConnection();
              PreparedStatement stmt = connection.prepareStatement(query)) {
 
@@ -106,55 +106,9 @@ public class UserDAO2 {
     }
 
     // Method to update user metadata (e.g., email, full name)
-//    public boolean editUser(int userId, String username, String email, String fullName) throws SQLException {
-//        StringBuilder queryBuilder = new StringBuilder("UPDATE user SET ");
-//        boolean isFirst = true;
-//
-//        // Dynamically construct the query based on non-null parameters
-//        if (username != null) {
-//            queryBuilder.append("username = ?");
-//            isFirst = false;
-//        }
-//        if (email != null) {
-//            queryBuilder.append("email = ?");
-//            isFirst = false;
-//        }
-//        if (fullName != null) {
-//            if (!isFirst) queryBuilder.append(", ");
-//            queryBuilder.append("full_name = ?");
-//        }
-//
-//        queryBuilder.append(" WHERE user_id = ?");
-//
-//        // If no updates are required, return false
-//        if (isFirst) {
-//            return false; // No parameters to update
-//        }
-//
-//        // Convert StringBuilder to String
-//        String query = queryBuilder.toString();
-//
-//        try (Connection connection = DBUtil.getConnection();
-//             PreparedStatement stmt = connection.prepareStatement(query)) {
-//
-//            // Set parameters dynamically
-//            int paramIndex = 1;
-//            if (email != null) {
-//                stmt.setString(paramIndex++, email);
-//            }
-//            if (fullName != null) {
-//                stmt.setString(paramIndex++, fullName);
-//            }
-//            stmt.setInt(paramIndex, userId);
-//
-//            // Execute the update
-//            int rowsUpdated = stmt.executeUpdate();
-//            return rowsUpdated > 0;
-//        }
-//    }
     
     public boolean editUser(int userId, String username, String email, String fullName) throws SQLException {
-        StringBuilder queryBuilder = new StringBuilder("UPDATE user SET ");
+        StringBuilder queryBuilder = new StringBuilder("UPDATE User SET ");
         boolean isFirst = true;
 
         // Dynamically construct the query based on non-null parameters
