@@ -40,7 +40,7 @@ public class NoteDAO {
     // Get notes by uploader ID
     public List<NoteBean> getNoteByUserId(int uploaderId) throws SQLException {
         List<NoteBean> notes = new ArrayList<>();
-        String query = "SELECT * FROM notes WHERE uploader_id = ?";
+        String query = "SELECT * FROM Note WHERE uploader_id = ?";
         
         try (Connection connection = DBUtil.getConnection();
              PreparedStatement stmt = connection.prepareStatement(query)) {
@@ -49,7 +49,7 @@ public class NoteDAO {
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
                     NoteBean note = new NoteBean();
-                    note.setNoteId(rs.getInt("noteId"));
+                    note.setNoteId(rs.getInt("note_id"));
                     note.setFileName(rs.getString("file_name"));
                     note.setFilePath(rs.getString("file_path"));
                     note.setUploaderId(rs.getInt("uploader_id")); // Changed to int
