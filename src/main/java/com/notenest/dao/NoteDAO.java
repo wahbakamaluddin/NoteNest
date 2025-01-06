@@ -38,7 +38,7 @@ public class NoteDAO {
     }
 
     // Get notes by uploader ID
-    public List<NoteBean> getNotesByUploaderId(int uploaderId) throws SQLException {
+    public List<NoteBean> getNoteByUserId(int uploaderId) throws SQLException {
         List<NoteBean> notes = new ArrayList<>();
         String query = "SELECT * FROM notes WHERE uploader_id = ?";
         

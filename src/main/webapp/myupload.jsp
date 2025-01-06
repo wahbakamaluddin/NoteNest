@@ -44,7 +44,7 @@
 
 		<div class="site-section">
 			<div class="container">
-				<div class="row">
+				<div class="row justify-content-center">
 					<div class="col-lg-8 mb-5">
 						<h2>My Uploads</h2>
 
@@ -71,27 +71,41 @@
 										<h5>Your Uploaded Notes</h5>
 										<!-- Example Notes -->
 										<%
-						try {
-							// Fetch all notes using the NoteDAO
-							NoteDAO noteDAO = new NoteDAO();
-							List<NoteBean> notes = noteDAO.getAllNote(); // Get all notes
-							session.setAttribute("note", notes); // Store notes in the session
-						} catch (Exception e) {
-							e.printStackTrace(); // Log any exception
-						}
-						%>
+										try {
+											// Retrieve the userId from the session
+											Integer userId = (Integer) session.getAttribute("userId");
+											System.out.println(userId);
+
+											// Check if userId is available
+											if (userId != null) {
+												// Fetch all notes for the specific user using the NoteDAO
+												NoteDAO noteDAO = new NoteDAO();
+												List<NoteBean> notes = noteDAO.getNoteByUserId(userId); // Pass userId to the DAO method
+												session.setAttribute("note", notes); // Store notes in the session
+												
+												System.out.println("Note is" + notes);
+
+											} else {
+												// Handle the case where the user is not logged in or userId is not found
+												System.out.println("User is not logged in.");
+											}
+										} catch (Exception e) {
+											e.printStackTrace(); // Log any exception
+										}
+										%>
+
 
 										<%
-						// Retrieve notes from the session
-						List<NoteBean> notes = (List<NoteBean>) session.getAttribute("note");
-						%>
+										// Retrieve notes from the session
+										List<NoteBean> notes = (List<NoteBean>) session.getAttribute("note");
+										%>
 
 										<%
-						if (notes != null && !notes.isEmpty()) {
-						%>
+										if (notes != null && !notes.isEmpty()) {
+										%>
 										<%
-						for (NoteBean note : notes) {
-						%>
+										for (NoteBean note : notes) {
+										%>
 										<div class="d-flex tutorial-item mb-4">
 											<div class="img-wrap">
 												<a href="#"> <img
@@ -117,15 +131,15 @@
 											</div>
 										</div>
 										<%
-						}
-						%>
+										}
+										%>
 										<%
-						} else {
-						%>
+										} else {
+										%>
 										<p>No notes available at the moment.</p>
 										<%
-						}
-						%>
+										}
+										%>
 
 									</div>
 								</div>

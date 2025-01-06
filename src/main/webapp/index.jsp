@@ -71,7 +71,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="row">
+				<div class="row ">
 					<div class="col-12">
 						<div class="heading mb-4">
 							<span class="caption">Latest</span>
@@ -112,7 +112,7 @@
 							</div>
 							<div>
 								<h3>
-									<a href="#"><%=note.getNoteTitle()%></a>
+									<a><%=note.getNoteTitle()%></a>
 								</h3>
 								<p><%=note.getNoteDescription()%></p>
 								<p class="meta">
