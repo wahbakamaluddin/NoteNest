@@ -1,4 +1,12 @@
 /* Base */
+
+#upload-notes .tab-pane.active {
+    all: unset;
+    color: #364d59; /* Custom text color */
+    background-color: transparent; /* Reset background */
+}
+
+
 html {
   overflow-x: hidden; }
 
@@ -1204,3 +1212,8 @@ h1, h2, h3, h4, h5,
   .post-meta a {
     color: #fff;
     border-bottom: 1px solid rgba(255, 255, 255, 0.5); }
+    
+    
+label {
+    color: inherit; /* Ensures the label color stays consistent with the default text color */
+}

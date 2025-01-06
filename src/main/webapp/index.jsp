@@ -105,8 +105,7 @@
 						%>
 						<div class="d-flex tutorial-item mb-4">
 							<div class="img-wrap">
-								<a href="#">
-									<img
+								<a href="#"> <img
 									src="<%=request.getContextPath() + note.getThumbnailPath()%>"
 									alt="Image" class="img-fluid">
 								</a>
@@ -123,7 +122,7 @@
 								<p>
 									<a
 										href="<%=request.getContextPath()%>/viewNote/<%=note.getId()%>"
-										class="btn btn-primary custom-btn">View</a>
+										class="btn btn-primary custom-btn"> View</a>
 								</p>
 
 							</div>
