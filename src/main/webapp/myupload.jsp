@@ -1,5 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@page import="java.util.List"%>
+<%@page import="java.util.Date"%>
+<%@page import="com.notenest.dao.NoteDAO,com.notenest.bean.NoteBean"%>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -25,7 +27,6 @@
 
 <body>
 	<div class="site-wrap" id="home-section">
-
 		<div class="site-mobile-menu site-navbar-target">
 			<div class="site-mobile-menu-header">
 				<div class="site-mobile-menu-close mt-3">
@@ -46,41 +47,168 @@
 				<div class="row">
 					<div class="col-lg-8 mb-5">
 						<h2>My Uploads</h2>
-						<form action="addNote" method="post" enctype="multipart/form-data">
-							<!-- Note Title -->
-							<div class="form-group" style="margin-bottom: 10px;">
-								<label for="noteTitle">Note Title:</label> <input type="text"
-									id="noteTitle" name="noteTitle" class="form-control"
-									placeholder="Enter note title" required><br>
+
+						<!-- Pills Navigation -->
+						<ul class="nav nav-pills mb-4" role="tablist"
+							style="margin-bottom: 20px;">
+							<li class="nav-item"><a class="nav-link active"
+								id="view-notes-tab" data-toggle="pill" href="#view-notes"
+								role="tab" aria-controls="view-notes" aria-selected="true"
+								style="margin-right: 10px;">View Notes</a></li>
+							<li class="nav-item"><a class="nav-link"
+								id="upload-notes-tab" data-toggle="pill" href="#upload-notes"
+								role="tab" aria-controls="upload-notes" aria-selected="false">Upload
+									Notes</a></li>
+						</ul>
+
+						<!-- Pills Content -->
+						<div class="tab-content">
+							<!-- View Notes Tab -->
+							<div class="tab-pane fade show active" id="view-notes"
+								role="tabpanel" aria-labelledby="view-notes-tab">
+								<div class="card" style="margin-bottom: 20px;">
+									<div class="card-body">
+										<h5>Your Uploaded Notes</h5>
+										<!-- Example Notes -->
+										<%
+						try {
+							// Fetch all notes using the NoteDAO
+							NoteDAO noteDAO = new NoteDAO();
+							List<NoteBean> notes = noteDAO.getAllNote(); // Get all notes
+							session.setAttribute("note", notes); // Store notes in the session
+						} catch (Exception e) {
+							e.printStackTrace(); // Log any exception
+						}
+						%>
+
+										<%
+						// Retrieve notes from the session
+						List<NoteBean> notes = (List<NoteBean>) session.getAttribute("note");
+						%>
+
+										<%
+						if (notes != null && !notes.isEmpty()) {
+						%>
+										<%
+						for (NoteBean note : notes) {
+						%>
+										<div class="d-flex tutorial-item mb-4">
+											<div class="img-wrap">
+												<a href="#"> <img
+													src="<%=request.getContextPath() + note.getThumbnailPath()%>"
+													alt="Image" class="img-fluid">
+												</a>
+											</div>
+											<div>
+												<h3>
+													<a href="#"><%=note.getNoteTitle()%></a>
+												</h3>
+												<p><%=note.getNoteDescription()%></p>
+												<p class="meta">
+													<span class="mr-2 mb-2"><%=note.getSubject()%></span> <span
+														class="mr-2 mb-2"><%=note.getUploadDate()%></span>
+												</p>
+												<p>
+													<a
+														href="<%=request.getContextPath()%>/viewNote/<%=note.getId()%>"
+														class="btn btn-primary custom-btn"> View</a>
+												</p>
+
+											</div>
+										</div>
+										<%
+						}
+						%>
+										<%
+						} else {
+						%>
+										<p>No notes available at the moment.</p>
+										<%
+						}
+						%>
+
+									</div>
+								</div>
 							</div>
 
-							<!-- Note Description -->
-							<div class="form-group" style="margin-bottom: 10px;">
-								<label for="noteDescription">Note Description:</label>
-								<textarea id="noteDescription" name="noteDescription"
-									class="form-control" placeholder="Enter note description"
-									rows="4" cols="50" required></textarea>
-								<br>
+							<!-- Upload Notes Tab -->
+							<!-- <div class="tab-pane fade" id="upload-notes" role="tabpanel" aria-labelledby="upload-notes-tab">
+                                <form action="addNote" method="post" enctype="multipart/form-data">
+                                    Note Title
+                                    <div class="form-group" style="margin-bottom: 10px;">
+                                        <label for="noteTitle">Note Title:</label>
+                                        <input type="text" id="noteTitle" name="noteTitle" class="form-control"
+                                            placeholder="Enter note title" required><br>
+                                    </div>
+
+                                    Note Description
+                                    <div class="form-group" style="margin-bottom: 10px;">
+                                        <label for="noteDescription">Note Description:</label>
+                                        <textarea id="noteDescription" name="noteDescription" class="form-control"
+                                            placeholder="Enter note description" rows="4" cols="50" required></textarea>
+                                        <br>
+                                    </div>
+
+                                    Subject
+                                    <div class="form-group" style="margin-bottom: 10px;">
+                                        <label for="subject">Subject:</label>
+                                        <input type="text" id="subject" name="subject" class="form-control"
+                                            placeholder="Enter subject" required><br>
+                                    </div>
+
+                                    File Upload
+                                    <div class="form-group" style="margin-bottom: 10px;">
+                                        <label for="file">Upload File:</label>
+                                        <input type="file" id="file" name="file" class="form-control dropify" accept=".pdf" required><br>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-primary btn-md text-white">Upload</button>
+                                    </div>
+                                </form>
+                            </div> -->
+							<div class="tab-pane fade" id="upload-notes" role="tabpanel"
+								aria-labelledby="upload-notes-tab" style="color: #364d59;">
+								<form action="addNote" method="post"
+									enctype="multipart/form-data">
+									<!-- Note Title -->
+									<div class="form-group" style="margin-bottom: 10px;">
+										<label for="noteTitle">Note Title:</label> <input type="text"
+											id="noteTitle" name="noteTitle" class="form-control"
+											placeholder="Enter note title" required><br>
+									</div>
+
+									<!-- Note Description -->
+									<div class="form-group" style="margin-bottom: 10px;">
+										<label for="noteDescription">Note Description:</label>
+										<textarea id="noteDescription" name="noteDescription"
+											class="form-control" placeholder="Enter note description"
+											rows="4" cols="50" required></textarea>
+										<br>
+									</div>
+
+									<!-- Subject -->
+									<div class="form-group" style="margin-bottom: 10px;">
+										<label for="subject">Subject:</label> <input type="text"
+											id="subject" name="subject" class="form-control"
+											placeholder="Enter subject" required><br>
+									</div>
+
+									<!-- File Upload -->
+									<div class="form-group" style="margin-bottom: 10px;">
+										<label for="file">Upload File:</label> <input type="file"
+											id="file" name="file" class="form-control dropify"
+											accept=".pdf" required><br>
+									</div>
+
+									<div class="form-group">
+										<button type="submit"
+											class="btn btn-primary btn-md text-white">Upload</button>
+									</div>
+								</form>
 							</div>
 
-							<!-- Subject -->
-							<div class="form-group" style="margin-bottom: 10px;">
-								<label for="subject">Subject:</label> <input type="text"
-									id="subject" name="subject" class="form-control"
-									placeholder="Enter subject" required><br>
-							</div>
-
-							<!-- File Upload -->
-							<div class="form-group" style="margin-bottom: 10px;">
-								<label for="file">Upload File:</label> <input type="file"
-									id="file" name="file" class="form-control dropify"
-									accept=".pdf" required><br>
-							</div>
-
-							<div class="form-group">
-								<button type="submit" class="btn btn-primary btn-md text-white">Upload</button>
-							</div>
-						</form>
+						</div>
 					</div>
 				</div>
 			</div>
