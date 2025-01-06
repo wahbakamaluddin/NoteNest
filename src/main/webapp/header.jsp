@@ -235,7 +235,7 @@
 
 /* Active page styling */
 .active {
-	font-weight: 900; /* Extra bold font weight */
+/* 	font-weight: 900; /* Extra bold font weight */ */
 	color: red; /* Active link colour */
 	font-size: 18px; /* Slightly larger font size */
 /* 	text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);

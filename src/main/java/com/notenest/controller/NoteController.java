@@ -147,8 +147,11 @@ public class NoteController extends HttpServlet {
 	        NoteDAO noteDAO = new NoteDAO();
 	        noteDAO.uploadNote(note);
 
-	        // Respond to client
-	        response.getWriter().println("File uploaded and metadata saved successfully.");
+	        // Set a success message in the session
+	        session.setAttribute("successMessage", "File uploaded and metadata saved successfully.");
+
+	        // Redirect to myupload.jsp after the note is uploaded successfully
+	        response.sendRedirect("myupload.jsp");
 	    } catch (Exception e) {
 	        // Log the error (optional)
 	        e.printStackTrace();

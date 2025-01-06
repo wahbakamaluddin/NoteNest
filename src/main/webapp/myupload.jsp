@@ -66,7 +66,7 @@
 							<!-- View Notes Tab -->
 							<div class="tab-pane fade show active" id="view-notes"
 								role="tabpanel" aria-labelledby="view-notes-tab">
-								<div class="card" style="margin-bottom: 20px;">
+								<div class="tabpanel" style="margin-bottom: 20px;">
 									<div class="card-body">
 										<h5>Your Uploaded Notes</h5>
 										<!-- Example Notes -->
@@ -130,43 +130,6 @@
 									</div>
 								</div>
 							</div>
-
-							<!-- Upload Notes Tab -->
-							<!-- <div class="tab-pane fade" id="upload-notes" role="tabpanel" aria-labelledby="upload-notes-tab">
-                                <form action="addNote" method="post" enctype="multipart/form-data">
-                                    Note Title
-                                    <div class="form-group" style="margin-bottom: 10px;">
-                                        <label for="noteTitle">Note Title:</label>
-                                        <input type="text" id="noteTitle" name="noteTitle" class="form-control"
-                                            placeholder="Enter note title" required><br>
-                                    </div>
-
-                                    Note Description
-                                    <div class="form-group" style="margin-bottom: 10px;">
-                                        <label for="noteDescription">Note Description:</label>
-                                        <textarea id="noteDescription" name="noteDescription" class="form-control"
-                                            placeholder="Enter note description" rows="4" cols="50" required></textarea>
-                                        <br>
-                                    </div>
-
-                                    Subject
-                                    <div class="form-group" style="margin-bottom: 10px;">
-                                        <label for="subject">Subject:</label>
-                                        <input type="text" id="subject" name="subject" class="form-control"
-                                            placeholder="Enter subject" required><br>
-                                    </div>
-
-                                    File Upload
-                                    <div class="form-group" style="margin-bottom: 10px;">
-                                        <label for="file">Upload File:</label>
-                                        <input type="file" id="file" name="file" class="form-control dropify" accept=".pdf" required><br>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <button type="submit" class="btn btn-primary btn-md text-white">Upload</button>
-                                    </div>
-                                </form>
-                            </div> -->
 							<div class="tab-pane fade" id="upload-notes" role="tabpanel"
 								aria-labelledby="upload-notes-tab" style="color: #364d59;">
 								<form action="addNote" method="post"
