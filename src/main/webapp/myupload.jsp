@@ -46,15 +46,15 @@
 			<div class="container">
 				<div class="row justify-content-center">
 					<div class="col-lg-8 mb-5">
-						<h2>My Uploads</h2>
-
+<!-- 						<h2>My Uploads</h2>
+ -->
 						<!-- Pills Navigation -->
 						<ul class="nav nav-pills mb-4" role="tablist"
 							style="margin-bottom: 20px;">
 							<li class="nav-item"><a class="nav-link active"
 								id="view-notes-tab" data-toggle="pill" href="#view-notes"
 								role="tab" aria-controls="view-notes" aria-selected="true"
-								style="margin-right: 10px;">View Notes</a></li>
+								style="margin-right: 10px;">My Notes</a></li>
 							<li class="nav-item"><a class="nav-link"
 								id="upload-notes-tab" data-toggle="pill" href="#upload-notes"
 								role="tab" aria-controls="upload-notes" aria-selected="false">Upload
@@ -68,8 +68,8 @@
 								role="tabpanel" aria-labelledby="view-notes-tab">
 								<div class="tabpanel" style="margin-bottom: 20px;">
 									<div class="card-body">
-										<h5>Your Uploaded Notes</h5>
-										<!-- Example Notes -->
+<!-- 										<h5>Your Uploaded Notes</h5>
+ -->										<!-- Example Notes -->
 										<%
 										try {
 											// Retrieve the userId from the session
@@ -80,10 +80,10 @@
 											if (userId != null) {
 												// Fetch all notes for the specific user using the NoteDAO
 												NoteDAO noteDAO = new NoteDAO();
-												List<NoteBean> notes = noteDAO.getNoteByUserId(userId); // Pass userId to the DAO method
-												session.setAttribute("note", notes); // Store notes in the session
+												List<NoteBean> notesById = noteDAO.getNoteByUserId(userId); // Pass userId to the DAO method
+												session.setAttribute("notesById", notesById); // Store notes in the session
 												
-												System.out.println("Note is" + notes);
+												System.out.println("Note is" + notesById);
 
 											} else {
 												// Handle the case where the user is not logged in or userId is not found
@@ -97,14 +97,14 @@
 
 										<%
 										// Retrieve notes from the session
-										List<NoteBean> notes = (List<NoteBean>) session.getAttribute("note");
+										List<NoteBean> notesById = (List<NoteBean>) session.getAttribute("notesById");
 										%>
 
 										<%
-										if (notes != null && !notes.isEmpty()) {
+										if (notesById != null && !notesById.isEmpty()) {
 										%>
 										<%
-										for (NoteBean note : notes) {
+										for (NoteBean note : notesById) {
 										%>
 										<div class="d-flex tutorial-item mb-4">
 											<div class="img-wrap">
@@ -136,7 +136,8 @@
 										<%
 										} else {
 										%>
-										<p>No notes available at the moment.</p>
+										<p>You haven't uploaded any notes!</p>
+										<p>Click on Upload Notes to upload note.</p>
 										<%
 										}
 										%>
