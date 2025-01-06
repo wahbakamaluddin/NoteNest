@@ -141,6 +141,22 @@ public class NoteDAO {
 		return null; // Return null if no file path is found
 	}
 
+	public String getNoteThumbnailPath(int noteId) throws SQLException {
+		String query = "SELECT thumbnail_path FROM Note WHERE note_id = ?";
+
+		try (Connection connection = DBUtil.getConnection();
+				PreparedStatement stmt = connection.prepareStatement(query)) {
+
+			stmt.setInt(1, noteId);
+			try (ResultSet rs = stmt.executeQuery()) {
+				if (rs.next()) {
+					return rs.getString("thumbnail_path");
+				}
+			}
+		}
+		return null; // Return null if no file path is found
+	}
+	
 	// Update metadata of a note
 	public void editNoteMetadata(int noteId, String subject, String noteDescription, String noteTitle) throws SQLException {
 		// Base query

@@ -12,6 +12,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.Part;
 
 import com.notenest.bean.NoteBean;
+import com.notenest.dao.NoteDAO;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.rendering.PDFRenderer;
@@ -113,4 +114,31 @@ public class NoteService {
         return note;
     }
 
+    public boolean deleteNoteById(int noteId) throws Exception {
+    	
+    	NoteDAO noteDAO = new NoteDAO();
+    	
+        String filePath = noteDAO.getNoteFilePath(noteId);
+        String thumbnailPath = noteDAO.getNoteThumbnailPath(noteId);
+
+        // Delete both files
+        deleteFile(filePath, "Note file not found.", "Failed to delete the note file.");
+        deleteFile(thumbnailPath, "Thumbnail file not found.", "Failed to delete the thumbnail file.");
+
+        // Remove the metadata from the database
+        return noteDAO.deleteNoteById(noteId);
+
+    }
+    
+    private void deleteFile(String filePath, String notFoundMessage, String deleteFailMessage) throws Exception {
+        if (filePath == null || filePath.isEmpty()) {
+            throw new Exception(notFoundMessage);
+        }
+
+        File file = new File(filePath);
+        if (file.exists() && !file.delete()) {
+            throw new Exception(deleteFailMessage);
+        }
+    }
 }
+
