@@ -234,7 +234,9 @@ public class NoteController extends HttpServlet {
             noteDAO.editNoteMetadata( noteId, subject, noteDescription, noteTitle);
 
             // Respond to the client
-            response.getWriter().println("Note metadata updated successfully.");
+
+	        // Redirect to myupload.jsp after the note is uploaded successfully
+	        response.sendRedirect("myupload.jsp");
         } catch (NumberFormatException e) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid Note ID format.");
         } catch (Exception e) {

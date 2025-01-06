@@ -46,7 +46,7 @@
 			<div class="container">
 				<div class="row justify-content-center">
 					<div class="col-lg-8 mb-5">
-<!-- 						<h2>My Uploads</h2>
+						<!-- 						<h2>My Uploads</h2>
  -->
 						<!-- Pills Navigation -->
 						<ul class="nav nav-pills mb-4" role="tablist"
@@ -68,8 +68,9 @@
 								role="tabpanel" aria-labelledby="view-notes-tab">
 								<div class="tabpanel" style="margin-bottom: 20px;">
 									<div class="card-body">
-<!-- 										<h5>Your Uploaded Notes</h5>
- -->										<!-- Example Notes -->
+										<!-- 										<h5>Your Uploaded Notes</h5>
+ -->
+										<!-- Example Notes -->
 										<%
 										try {
 											// Retrieve the userId from the session
@@ -83,8 +84,6 @@
 												List<NoteBean> notesById = noteDAO.getNoteByUserId(userId); // Pass userId to the DAO method
 												session.setAttribute("notesById", notesById); // Store notes in the session
 												
-												System.out.println("Note is" + notesById);
-
 											} else {
 												// Handle the case where the user is not logged in or userId is not found
 												System.out.println("User is not logged in.");
@@ -125,7 +124,11 @@
 												<p>
 													<a
 														href="<%=request.getContextPath()%>/viewNote/<%=note.getId()%>"
-														class="btn btn-primary custom-btn"> View</a>
+														class="btn btn-primary custom-btn"> View</a> <a
+														href="editNote.jsp?id=<%=note.getId()%>"
+														class="btn btn-primary custom-btn"> Edit</a> <a
+														href="<%=request.getContextPath()%>/viewNote/<%=note.getId()%>"
+														class="btn btn-primary custom-btn"> Delete</a>
 												</p>
 
 											</div>
