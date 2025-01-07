@@ -76,55 +76,13 @@
 				<div class="row">
 					<div class="col-lg-8 mb-5">
 						<h2>Edit note</h2>
-						<%-- 						<form action="addNote" method="post" enctype="multipart/form-data">
-							<!-- Note Title -->
-							<div class="form-group" style="margin-bottom: 10px;">
-								<label for="noteTitle">Note Title: <%=note.getNoteTitle()%></label>
-								<input type="text" id="noteTitle" name="noteTitle"
-									class="form-control" placeholder="Enter note title" required><br>
-							</div>
-
-							<!-- Note Description -->
-							<div class="form-group" style="margin-bottom: 10px;">
-								<label for="noteDescription">Note Description: <%=note.getNoteDescription()%></label>
-								<textarea id="noteDescription" name="noteDescription"
-									class="form-control" placeholder="Enter note description"
-									rows="4" cols="50" required></textarea>
-								<br>
-							</div>
-
-							<!-- Subject -->
-							<div class="form-group" style="margin-bottom: 10px;">
-								<label for="subject">Subject: <%=note.getSubject()%></label> <input
-									type="text" id="subject" name="subject" class="form-control"
-									placeholder="Enter subject" required><br>
-							</div>
-
-
-							<!-- File Upload -->
-							<h4>Uploaded file: <%=note.getFileName()%>
-								(You can't edit uploaded file)
-							</h4>
-							<iframe class="embed-responsive-item"
-								src="<%=request.getContextPath() + note.getFilePath()%>"
-								frameborder="0" allowfullscreen></iframe>
-
-
-							<p style="margin-top: 20px;">
-								<a href="editNote.jsp?id=<%=note.getId()%>"
-									class="btn btn-primary custom-btn"> Edit</a> <a
-									href="<%=request.getContextPath()%>/viewNote/<%=note.getId()%>"
-									class="btn btn-primary custom-btn"> Delete</a>
-							</p>
-
-						</form> --%>
 						<form action="editNote" method="post"
 							enctype="multipart/form-data">
 							<!-- Note Title -->
 							<div class="form-group" style="margin-bottom: 10px;">
-								<label for="noteTitle">Note Title: <%=note.getNoteTitle()%></label> <input type="text"
-									id="noteTitle" name="noteTitle" class="form-control"
-									placeholder="Enter note title"><br>
+								<label for="noteTitle">Note Title: <%=note.getNoteTitle()%></label>
+								<input type="text" id="noteTitle" name="noteTitle"
+									class="form-control" placeholder="Enter note title"><br>
 							</div>
 
 							<!-- Note Description -->
@@ -138,15 +96,22 @@
 
 							<!-- Subject -->
 							<div class="form-group" style="margin-bottom: 10px;">
-								<label for="subject">Subject: <%=note.getSubject()%></label> <input type="text"
-									id="subject" name="subject" class="form-control"
+								<label for="subject">Subject: <%=note.getSubject()%></label> <input
+									type="text" id="subject" name="subject" class="form-control"
 									placeholder="Enter subject"><br>
 							</div>
 
 
-							<h6>Uploaded file: <%=note.getFileName()%>
+							<h6>
+								Uploaded file:
+								<%=note.getFileName()%>
 								(You can't edit uploaded file)
 							</h6>
+							<div class="embed-responsive embed-responsive-16by9">
+								<iframe class="embed-responsive-item"
+									src="<%= request.getContextPath() %>${note.filePath}"
+									frameborder="0" allowfullscreen> </iframe>
+							</div>
 							<!-- Note ID (hidden) -->
 							<input type="hidden" name="noteId" value="<%=note.getId()%>">
 

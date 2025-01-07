@@ -57,6 +57,7 @@ public class NoteDAO {
 					note.setUploadDate(rs.getDate("upload_date").toLocalDate());
 					note.setNoteDescription(rs.getString("note_description"));
 					note.setNoteTitle(rs.getString("note_title"));
+					note.setThumbnailPath(rs.getString("thumbnail_path"));
 					notes.add(note);
 				}
 			}
