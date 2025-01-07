@@ -1,9 +1,8 @@
-<%@ page import="org.json.simple.JSONObject" %>
-<%@ page import="org.json.simple.JSONArray" %>
-<%@ page import="com.notenest.bean.UserBean" %>
-<%@ page import="com.notenest.dao.UserDAO" %>
-<%@ page import="com.notenest.util.DBUtil" %>
-<%@ page import="java.sql.*" %>
+<%@ page import="org.json.simple.JSONObject"%>
+<%@ page import="org.json.simple.JSONArray"%>
+<%@ page import="com.notenest.bean.UserBean"%>
+<%@ page import="com.notenest.dao.UserDAO"%>
+<%@ page import="java.sql.*"%>
 
 <%
     // Create JSON response array
@@ -18,10 +17,9 @@
    	
 
     // Instantiate UsersDAO to interact with the database
-    Connection con =  DBUtil.getConnection();
-    UserDAO userDAO = new UserDAO(con);
+    UserDAO userDAO = new UserDAO();
     JSONObject obj = new JSONObject();
-
+    
     try {
         // Call insertUser method from DAO to add user into the database
         user = userDAO.insertUser(user);
@@ -41,12 +39,6 @@
         list.add(obj);
         out.println(list.toJSONString());
         out.flush();
-    } catch (ClassNotFoundException ex) {
-        // Handle ClassNotFound exceptions
-        ex.printStackTrace();
-        obj.put("error", "Class not found: " + ex.getMessage());
-        list.add(obj);
-        out.println(list.toJSONString());
-        out.flush();
     }
+
 %>

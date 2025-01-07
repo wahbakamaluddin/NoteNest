@@ -217,6 +217,8 @@ public class NoteController extends HttpServlet {
 
 			// Redirect to myupload.jsp after the note is uploaded successfully
 			response.sendRedirect("myupload.jsp");
+			// request dispatcher
+			
 		} catch (NumberFormatException e) {
 			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid Note ID format.");
 		} catch (Exception e) {

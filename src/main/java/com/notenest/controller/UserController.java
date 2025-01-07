@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.notenest.dao.UserDAO2;
+import com.notenest.dao.UserDAO;
 
 /**
  * Servlet implementation class UserController
@@ -60,7 +60,7 @@ public class UserController extends HttpServlet {
             System.out.println(userIdParam + username + email + fullName);
 
             // Call the UserDAO to update the user details in the database
-            UserDAO2 userDAO = new UserDAO2();
+            UserDAO userDAO = new UserDAO();
             boolean success = userDAO.editUser(userId, username, email, fullName);
 
             if (success) {
