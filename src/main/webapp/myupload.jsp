@@ -121,7 +121,9 @@
 										<div class="d-flex tutorial-item mb-4">
 											<div class="img-wrap">
 												<a href="#"> <img
-													src="<%=request.getContextPath() + note.getThumbnailPath()%>"
+													src="<%=note.getThumbnailPath() != null && !note.getThumbnailPath().isEmpty()
+		? request.getContextPath() + note.getThumbnailPath()
+		: request.getContextPath() + "/images/hero_bg2.jpg"%>"
 													alt="Image" class="img-fluid">
 												</a>
 											</div>
