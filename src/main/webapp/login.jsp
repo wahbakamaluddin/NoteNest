@@ -99,7 +99,7 @@
 												<button type="button"
 													class="btn btn-primary px-5 rounded-pill" onclick="login()">Sign
 													In</button>
-<!-- 												<button type="button" class="btn btn-primary"
+								<!-- 				<button type="button" class="btn btn-primary"
 													id="liveToastBtn">Show toast</button> -->
 											</div>
 										</form>
@@ -172,20 +172,22 @@
 															class="btn-close btn-close-sm ms-auto"
 															data-bs-dismiss="toast" aria-label="Close"></button>
 													</div>
-													<span>Go to login to log in to your account!</span>
+													<span>Proceed to the login page to access your
+														account!</span>
 												</div>
 											</div>
 										</div>
 									</div>
 								</div>
-
 							</div>
 
-
 						</div>
+
+
 					</div>
 				</div>
 			</div>
+		</div>
 		</div>
 		</div>
 

@@ -62,11 +62,11 @@
 					frameborder="0" allowfullscreen> </iframe>
 			</div>
 
-			<!-- Include footer.jsp -->
-			<%@ include file="footer.jsp"%>
+
 
 		</div>
-
+		<!-- Include footer.jsp -->
+		<%@ include file="footer.jsp"%>
 		<script src="<%=request.getContextPath()%>/js/jquery-3.3.1.min.js"></script>
 		<script src="<%=request.getContextPath()%>/js/popper.min.js"></script>
 		<script src="<%=request.getContextPath()%>/js/bootstrap.min.js"></script>
