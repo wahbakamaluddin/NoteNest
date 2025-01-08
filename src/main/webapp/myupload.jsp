@@ -129,7 +129,7 @@
 											</div>
 											<div>
 												<h3>
-													<a href="#"><%=note.getNoteTitle()%></a>
+													<a><%=note.getNoteTitle()%></a>
 												</h3>
 												<p><%=note.getNoteDescription()%></p>
 												<p class="meta">

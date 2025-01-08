@@ -64,41 +64,6 @@ public class NoteService {
 		return relativeFilePath; // Return the stored file's full path
 	}
 
-	//	public static String generateThumbnail(String storedFilePath, ServletContext context) throws IOException {
-	//		// Path for thumbnail folder
-	//		String thumbnailDir = context.getRealPath("/") + THUMBNAIL_DIR;
-	//		File thumbnailDirFile = new File(thumbnailDir);
-	//		if (!thumbnailDirFile.exists()) {
-	//			if (!thumbnailDirFile.mkdirs()) {
-	//				throw new IOException("Failed to create thumbnail directory: " + thumbnailDir);
-	//			}
-	//		}
-
-	//        // Extract file name
-	//        String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
-	//
-	//        // Create an InputStream from the Part (this avoids saving the file on disk)
-	//        InputStream inputStream = filePart.getInputStream();
-	//
-	//        // Load the PDF document from the InputStream (PDFBox 3.x method)
-	//        try (PDDocument document = PDDocument.load(inputStream)) {  // Load PDF from InputStream
-	//            // Create a PDFRenderer object to render the first page
-	//            PDFRenderer pdfRenderer = new PDFRenderer(document);
-	//            BufferedImage image = pdfRenderer.renderImageWithDPI(0, 150); // Render first page at 150 DPI
-	//
-	//            // Save the thumbnail as an image
-	//            String thumbnailFileName = fileName.replace(".pdf", ".png");
-	//            String thumbnailPath = thumbnailDir + File.separator + thumbnailFileName;
-	//            ImageIO.write(image, "PNG", new File(thumbnailPath));
-	//
-	//            // Return the thumbnail folder path
-	//            String relativeFilePath = "/" + THUMBNAIL_DIR + "/" + thumbnailFileName;
-	//            return relativeFilePath;
-	//        } catch (IOException e) {
-	//            throw new IOException("Error while generating thumbnail", e);
-	//        }
-	//    }
-
 	public static String generateThumbnail(String storedFilePath, ServletContext context) throws IOException {
 		// Path for thumbnail folder
 		String thumbnailDir = context.getRealPath("/") + THUMBNAIL_DIR;
