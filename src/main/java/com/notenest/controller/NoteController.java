@@ -132,7 +132,7 @@ public class NoteController extends HttpServlet {
 			// Generate the thumbnail for the uploaded PDF file using the Part object
 			String thumbnailPath = "";
 			try {
-				thumbnailPath = NoteService.generateThumbnail(filePart, request.getServletContext());
+				thumbnailPath = NoteService.generateThumbnail(filePath, request.getServletContext());
 			} catch (Exception e) {
 				e.printStackTrace();
 				response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error generating the thumbnail.");
