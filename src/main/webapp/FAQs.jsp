@@ -4,7 +4,7 @@
 <html lang="en">
 
 <head>
-<title>About Us &mdash; NoteNest</title>
+<title>FAQs &mdash; NoteNest</title>
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -42,7 +42,7 @@
 		<!-- Include background.jsp -->
 		<%@ include file="background.jsp"%>
 
-		<!-- About Section -->
+		<!-- FAQs Section -->
 		<div class="site-section">
 			<div class="container">
 				<div class="row">
@@ -52,24 +52,54 @@
 					</div>
 					<div class="col-lg-4 mr-auto">
 						<div class="heading mb-4">
-							<span class="caption">About Us</span>
-							<h2>Welcome to NoteNest</h2>
+							<span class="caption">FAQs</span>
+							<h2>Frequently Asked Questions</h2>
 						</div>
-						<p>At NoteNest, we are revolutionizing the way students
-							collaborate and share knowledge. Our platform empowers students
-							to upload, organize, and access academic notes effortlessly.
-							Whether you're preparing for exams or diving into new topics,
-							NoteNest is your trusted companion for academic success.</p>
-						<p>We believe in fostering a community where knowledge is
-							accessible to everyone. Our mission is to create a seamless and
-							user-friendly environment that inspires learning and helps
-							students achieve their goals.</p>
-						<p>Join us in building a smarter, more connected academic
-							world!</p>
+						<div>
+							<p>
+								<strong>Q1: What is NoteNest?</strong>
+							</p>
+							<p>A1: NoteNest is a platform where students can upload,
+								share, and access academic notes to enhance collaborative
+								learning.</p>
+
+							<p>
+								<strong>Q2: How do I upload my notes?</strong>
+							</p>
+							<p>A2: After logging in, navigate to the "My Uploads" page,
+								click the upload button, and follow the instructions to upload
+								your notes in PDF format.</p>
+
+							<p>
+								<strong>Q3: Is NoteNest free to use?</strong>
+							</p>
+							<p>A3: Yes, NoteNest is free for students. However, we may
+								introduce premium features in the future.</p>
+
+							<p>
+								<strong>Q4: Can I delete my uploaded notes?</strong>
+							</p>
+							<p>A4: Yes, you can manage your uploaded files on the "My
+								Uploads" page and delete any files you no longer want to share.</p>
+
+							<p>
+								<strong>Q5: Is my data secure?</strong>
+							</p>
+							<p>A5: We prioritize your privacy and implement robust
+								security measures to protect your data. Please refer to our
+								Privacy Policy for more details.</p>
+
+							<p>
+								<strong>Q6: How do I contact support?</strong>
+							</p>
+							<p>A6: You can contact our support team via the "Contact Us"
+								page or by emailing us directly at support@notenest.com.</p>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+
 		<!-- Include footer.jsp -->
 		<%@ include file="footer.jsp"%>
 	</div>

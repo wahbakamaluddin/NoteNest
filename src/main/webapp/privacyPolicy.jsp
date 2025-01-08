@@ -4,7 +4,7 @@
 <html lang="en">
 
 <head>
-<title>About Us &mdash; NoteNest</title>
+<title>Privacy Policy &mdash; NoteNest</title>
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -42,7 +42,7 @@
 		<!-- Include background.jsp -->
 		<%@ include file="background.jsp"%>
 
-		<!-- About Section -->
+		<!-- Privacy Policy Section -->
 		<div class="site-section">
 			<div class="container">
 				<div class="row">
@@ -52,24 +52,45 @@
 					</div>
 					<div class="col-lg-4 mr-auto">
 						<div class="heading mb-4">
-							<span class="caption">About Us</span>
-							<h2>Welcome to NoteNest</h2>
+							<span class="caption">Privacy Policy</span>
+							<h2>Our Commitment to Your Privacy</h2>
 						</div>
-						<p>At NoteNest, we are revolutionizing the way students
-							collaborate and share knowledge. Our platform empowers students
-							to upload, organize, and access academic notes effortlessly.
-							Whether you're preparing for exams or diving into new topics,
-							NoteNest is your trusted companion for academic success.</p>
-						<p>We believe in fostering a community where knowledge is
-							accessible to everyone. Our mission is to create a seamless and
-							user-friendly environment that inspires learning and helps
-							students achieve their goals.</p>
-						<p>Join us in building a smarter, more connected academic
-							world!</p>
+						<p>Your privacy is important to us at NoteNest. This Privacy
+							Policy outlines how we collect, use, and protect your personal
+							information.</p>
+						<p>
+							<strong>1. Information We Collect:</strong> We may collect
+							personal details such as your name, email address, and uploaded
+							content when you create an account or interact with our platform.
+						</p>
+						<p>
+							<strong>2. How We Use Your Information:</strong> Your data is
+							used to enhance your experience on NoteNest, including managing
+							your uploads, personalizing your experience, and communicating
+							updates.
+						</p>
+						<p>
+							<strong>3. Sharing of Information:</strong> We do not sell or
+							share your personal information with third parties, except as
+							required by law or to provide essential services.
+						</p>
+						<p>
+							<strong>4. Data Security:</strong> We implement robust security
+							measures to protect your information. However, no online service
+							can be completely secure.
+						</p>
+						<p>
+							<strong>5. Your Rights:</strong> You have the right to access,
+							modify, or delete your personal data at any time by contacting
+							our support team.
+						</p>
+						<p>For detailed inquiries, please reach out to our support
+							team. By using NoteNest, you agree to this Privacy Policy.</p>
 					</div>
 				</div>
 			</div>
 		</div>
+
 		<!-- Include footer.jsp -->
 		<%@ include file="footer.jsp"%>
 	</div>
