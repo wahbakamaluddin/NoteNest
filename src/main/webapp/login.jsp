@@ -9,11 +9,14 @@
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
 	rel="stylesheet">
+<link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css"
+	rel="stylesheet">
 <!-- Font Awesome for icons -->
 <link
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
 	rel="stylesheet">
-
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <style>
 .full-page-section {
 	height: 100vh;
@@ -26,6 +29,7 @@
 </head>
 
 <body class="bg-light">
+
 	<!-- Section: Full-page block -->
 	<section class="full-page-section">
 		<div class="px-4 py-5 px-md-5 text-center text-lg-start">
@@ -95,6 +99,8 @@
 												<button type="button"
 													class="btn btn-primary px-5 rounded-pill" onclick="login()">Sign
 													In</button>
+<!-- 												<button type="button" class="btn btn-primary"
+													id="liveToastBtn">Show toast</button> -->
 											</div>
 										</form>
 									</div>
@@ -151,13 +157,38 @@
 										</form>
 									</div>
 								</div>
+								<div class="toast-container position-fixed top-0 end-0 p-6">
+									<div id="liveToast" class="toast fade hide" role="alert"
+										aria-live="assertive" aria-atomic="true">
+										<div class="toast-body">
+											<div class="d-flex gap-4">
+												<span> <i
+													class="fa-solid fa-circle-check fa-lg icon-success"></i>
+												</span>
+												<div class="d-flex flex-column flex-grow-1 gap-2">
+													<div class="d-flex align-items-center">
+														<span class="fw-semibold">Register is successful!</span>
+														<button type="button"
+															class="btn-close btn-close-sm ms-auto"
+															data-bs-dismiss="toast" aria-label="Close"></button>
+													</div>
+													<span>Go to login to log in to your account!</span>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
 
 							</div>
+
+
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+		</div>
+
 	</section>
 
 	<!-- jQuery -->
@@ -200,7 +231,7 @@
                 }
             });
         }
-
+        
         function addUser() {
             // Validate form before proceeding
             if ($("#frm-register").valid()) {
@@ -211,21 +242,35 @@
                     url: url,
                     dataType: 'json', // Expect JSON response
                     data: data,
-                    success: function (response) {
-                        if (response && response[0]?.status === 'success') {
-                            alert("User registered successfully!");
-                            $("#frm-register")[0].reset(); // Reset form
+                    success: function(response) {
+                        // Check if the response contains the success message
+                        if (response && response[0]?.name === 'success') {
+                            // Show success toast message
+                            const toastLiveExample = document.getElementById("liveToast");
+                            const toast = new bootstrap.Toast(toastLiveExample);
+                            toast.show();
+
+                            // Reset the form
+                            $("#frm-register")[0].reset();
                         } else {
-                            alert("Error: " + response[0]?.message);
+                            alert("Error: " + response[0]?.message || "Unknown error");
                         }
                     },
-                    error: function (xhr, status, error) {
+                    error: function(xhr, status, error) {
                         alert("An error occurred: " + error);
                     }
                 });
             }
         }
     </script>
+
+	<script>
+      const toastTrigger = document.getElementById("liveToastBtn");
+  const toastLiveExample = document.getElementById("liveToast");
+  toastTrigger.addEventListener("click", () => {
+    const toast = new bootstrap.Toast(toastLiveExample);
+    toast.show();
+  });    </script>
 </body>
 
 </html>
