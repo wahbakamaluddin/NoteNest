@@ -109,7 +109,7 @@
 							</h6>
 							<div class="embed-responsive embed-responsive-16by9">
 								<iframe class="embed-responsive-item"
-									src="<%= request.getContextPath() %>${note.filePath}"
+									src="<%=request.getContextPath() + note.getFilePath()%>"
 									frameborder="0" allowfullscreen> </iframe>
 							</div>
 							<!-- Note ID (hidden) -->
